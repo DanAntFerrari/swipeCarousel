@@ -26,7 +26,7 @@
 			slideshow	: {
 				state 		: false 	// Default: false 	--> Set true for turn it on
 				,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
-				,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
+				,stopLoop	: 1 		// Default: 1 		--> Set number of times (0 for infinite)
 			}
 			,set	: {
 				forRow    	: 1 		// Default: 1 		-->	 Set number of item for row
@@ -66,10 +66,6 @@
 		self.$element.data("swipeCarousel", self);
 
 		var container = $(">ul", element);
-		//hide element start
-			container.add('.carousel .nav, .carousel .indicators').addClass('invisible');
-
-
 		var panes = $(">ul>li", element);
 
 		var pane_width = 0;
@@ -100,15 +96,12 @@
 		//initialization
 
 		this.init=function() {
+			self.setPaneDimensions(true);
 			// IF slide length > 0
 			if (pane_count > 1){
 				// INIT NAVIGATION
 				self.navigation();
-			}
-			self.setPaneDimensions(true);
-
 				// INIT SLIDESHOW
-			if (pane_count > 1){
 				if (options.slideshow.state){
 					self.sliderstartTimer();
 				}
@@ -149,6 +142,11 @@
 				panes.hide();
 			}
 
+			if(options.set.spot){
+				// center pointers in page:
+				var leftMargin = element.find('.indicators').outerWidth() / 2 ;
+				element.find('.indicators').css('margin-left',-leftMargin+'px');
+			}
 			if(options.set.spot){
 				// center pointers in page:
 				var leftMargin = element.find('.indicators').outerWidth() / 2 ;
@@ -329,11 +327,9 @@
 
 		function setContainerOffset(percent, animate) {
 			container.removeClass("animate");
-			options.set.arrowTo.removeClass("animate");
 
 			if(animate) {
 				container.addClass("animate");
-				options.set.arrowTo.addClass("animate");
 			}
 			if (Modernizr.csstransforms3d) {
 				//container.css("transform", "translate3d("+ percent +"%,0,0) scale3d(1,1,1)");

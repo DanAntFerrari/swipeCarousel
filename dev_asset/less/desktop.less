@@ -1,0 +1,56 @@
+// ------------------------------------------------------------------
+//
+// [desktop.less] to [desktop.min.css]
+//
+// Project:			 rcs_libreriarizzoli_1.0.1
+//
+/* Description:     CSS for large desktop
+ *
+ * * Start on:		05/05/2014
+ */
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by head.html include
+// -------------------------------------------------------------------
+//
+@import url("main.less");
+@import url("variables.less");
+
+
+	// ------------------- ------- ----------------------
+	// --------------------- MAIN -----------------------
+	// ------------------- ------- ----------------------
+		.content {
+			margin: 0 auto;
+			width: auto;
+			max-width: 940px;
+		}
+	// ------------------- ------- ----------------------
+	// ------------------- LAYOUT -----------------------
+	// ------------------- ------- ----------------------
+
+
+	// __________________________________________________
+	// ------------------- ------- ----------------------
+	// --------------------- DEBUGGING ------------------
+	// ------------------- ------- ----------------------
+	body.debugging:before{
+		content:"CONSOLE-LOG ON - DESKTOP DEVICE";
+		background-color: @red;
+	}
+
+	.lt-ie9{
+		.content {
+			margin: 0 auto;
+			width: 940px;
+		}
+	}

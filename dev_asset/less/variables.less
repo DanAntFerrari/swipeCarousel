@@ -1,0 +1,247 @@
+//-----------------------------------------------------------------------------
+//
+// [variables.less]
+//
+// Project:						rcs_libreriarizzoli_1.0.1
+//
+// Description:					Variables to customize the look and feel
+//
+// Last change:					13/05/2013
+//
+// Based on:					HTML5 Boilerplate pimped by Wip
+// Copyright					2014 Wip Italia S.r.l.
+// Author URI:					http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+//-----------------------------------------------------------------------------
+// this file is minimized and inport by style.less
+//-----------------------------------------------------------------------------
+
+
+// ------------------- ------- ----------------------
+// ---------------- GLOBAL VALUES -------------------
+// ------------------- ------- ----------------------
+
+
+// ----------- Grays --------------
+
+@grayDarker:						lighten(#000, 13.5%);	// #222
+@grayDark:							lighten(#000, 20%);		// #333
+@gray:								lighten(#000, 33.5%);	// #555
+@grayLight:							lighten(#000, 60%);		// #999
+@grayLighter:						lighten(#000, 93.5%);	// #eee
+
+
+// ----------- Grays OVERwrite --------------
+
+@grayDarker:						#525252;	//RCS alternative to #222
+@grayDark:							#858585;	//alternative to #333
+@gray:								#C1C1C1;	//RCS alternative to #555
+@grayLight:							#DFDBD5;	//RCS alternative to #999
+@grayLighter:						#F5F5F5;	//RCS alternative to #eee
+
+
+// ----------- Accent colors --------------
+
+@blue:								#375689;	// RCS
+@blueDark:							#002043;	// RCS
+@blueLight: 						#4D9DC2;	// RCS
+@blueLighter: 						#D1E3EC;	// RCS
+@greenBlue:							#8cb1b5;
+@green:								#0E9333;	// RCS
+@greenLight:						#00CC33;	// sgm
+@greenDark:							#009900;	// sgm
+@red:								#D80000;	// RCS
+@redDark:							#d00000;	// sgm#BB411B
+@redLight:							#D83300;	// RCS
+@redLighter:						#CE5952;
+@yellow:							#F4C938;
+@yellowLight:						#FFF69D;	//boilerplate
+@orange:							#F16522;	// sgm
+@orangeLight:						#E57400;	// sgm
+@orangeLighter:						#FF9900;	// sgm
+@pink:								#c3325f;
+@purple:							#7a43b6;
+
+
+@verde-acqua: 			#8cb1b5;
+
+// ----------- Scaffolding --------------
+
+@bodyBackground:					white;// RCS
+//@textColor:						lighten(black,30%);
+@textColor:							@grayDarker;
+@selectionColor:					@yellowLight;
+
+
+
+// ----------- Links --------------
+
+@linkColor:							@blueDark;
+@linkColorHover:					lighten(@linkColor, 15%);
+
+
+
+// ----------- Typography --------------
+
+@sansFontFamily:					Helvetica, Arial, sans-serif;//sgm
+@serifFontFamily:					Georgia, Times, serif;
+@monoFontFamily:					Menlo, Monaco, Consolas, "Courier New", monospace;
+
+
+// BASE FONT SIZE 14px // http://pxtoem.com
+//---------------------------------------------------------------------------//
+// Pixels							EMs			Percent		Points
+//---------------------------------------------------------------------------//
+//2px								0.143em		14.3%
+//4px								0.286em		28.6%
+//5px								0.357em		35.7%
+//6px								0.429em		42.9%		5pt
+//7px								0.500em		50.0%		5pt
+//8px								0.571em		57.1%		6pt
+//9px								0.643em		64.3%		7pt
+//10px								0.643em		71.4%		8pt
+//11px								0.786em		78.6%		8pt
+//12px								0.857em		85.7%		9pt
+//13px								0.929em		92.9%		10pt
+//14px								1.000em		100.0%		11pt
+//15px								1.071em		107.1%		11pt
+//16px								1.143em		114.3%		12pt
+//17px								1.214em		121.4%		13pt
+//18px								1.286em		128.6%		14pt
+//19px								1.357em		135.7%		14pt
+//20px								1.429em		142.9%		15pt
+//21px								1.500em		150.0%		16pt
+//22px								1.571em		157.1%		17pt
+//23px								1.643em		164.3%		17pt
+//24px								1.714em		171.4%		18pt
+//22px								1.571em		157.1%
+//26px								1.857em		185.7%
+//28px								2.000em		200.0%
+//32px								2.286em		228.6%
+//38px								2.375em		237.5%
+//40px								2.857em		285.7%
+//41px								2.563em		256.3%
+//42px								3.000em		300.0%
+//48px								3.429em		342.9%
+//117px								8.357em		835.7%
+
+@baseFontSize:						87.5%; // browser size uguale a 14px
+@fontSizeBase:						@baseFontSize;
+@fontSizelarge:						ceil(@fontSizeBase * 1.25); // ~18px
+@fontSizesmall:						ceil(@fontSizeBase * 0.85); // ~12px
+
+@fontSzh1:							floor(@fontSizeBase * 2.60); // ~36px
+@fontSzh2:							floor(@fontSizeBase * 2.15); // ~30px
+//@fontSzh3:						ceil(@fontSizeBase * 1.70); // ~24px
+@fontSzh3:							ceil(@fontSizeBase * 1.571); // ~22px
+@fontSzh4:							ceil(@fontSizeBase * 1.25); // ~18px
+@fontSzh5:							@fontSizeBase;
+@fontSzh6:							ceil(@fontSizeBase * 0.85); // ~12px
+
+@lineHeightBase:					1.428;//1.428571429; // 20/14
+@lineHeightComputed:				1em;
+
+@baseFontFamily:						'Lato',@sansFontFamily;
+
+// @baseLineHeight will help simplify your line-heights and vertical rhythm in any project.
+@baseLineHeight:					20px;
+
+@altFontFamily:						@serifFontFamily;
+
+@headingsFontFamily:				inherit; //	empty to use BS default, @baseFontFamily
+@headingsColor:						inherit; //	empty to use BS default, @textColor
+
+
+//36px		2.571em
+//41px		2.929em
+
+// In typography less you can find suggested tag definition:
+//	strong { font-weight:regular;  .fontWeightBold };
+//  b { font-weight:regular;  .fontWeightSemiBold };
+//  em { font-weight:regular;  .fontWeightLight };
+
+// ----------- Tables --------------
+
+@tableBackground:					transparent;	// overall background-color
+@tableBackgroundAccent:				#F7FCFF;	//SGM -for striping
+@tableBackgroundHover:				#f5f5f5;	// for hover
+@tableBorder:						@gray;		//SGM - table and cell border
+
+// ----------- Input placeholder text color --------------
+
+@placeholderText:					@gray; // RCS - @grayLight boilerplate
+
+
+// ----------- Hr border color --------------
+
+@hrBorder:							@grayLight; // RCS
+
+
+// ----------- Forms--------------
+
+@inputHeight:						1em;
+//Form states and alerts
+@inputBackground:					white;//boilerplate
+@inputBorder:						@grayLight; // RCS - #AEB8BA boilerplate
+@inputPadding:						0.45em 0.571em; // RCS - 0.7em 10px 0.6em 10px boilerplate
+
+//@inputPadding:	1.1em 0.7em;
+@inputBorderRadius:					0;	// RCS
+@inputReadonlyBackground:			lighten(@inputBorder, 10%);
+@inputReadonlyBorder:				@inputReadonlyBackground;
+@inputDisabledBackground:			lighten(@placeholderText, 20%);
+@inputDisabledBorder:				lighten(@placeholderText, 10%);
+@inputFocusBackground:				@inputBackground;//sgm
+@inputFocusBorder:					#E6F5FF;//sgm
+@formActionsBackground:				#E6F5FF;
+
+//Form-Table-Badge STATES AND ALERTS
+
+@errorText:							@red;
+@errorBackground:					lighten(@red, 50% ); //RCS
+@errorBorder:						darken(spin(@errorBackground, -10), 5%); //RCS
+
+@attentionText:						#B48900;//sgm
+@attentionBackground:				lighten(@yellow, 30% );
+@attentionBorder:					darken(spin(@attentionBackground, -10), 5%); //RCS
+
+@warningText:						@redLight;
+@warningBackground:					lighten(@redLight, 53% ); //RCS
+@warningBorder:						darken(@warningBackground,30%); //RCS
+
+@successText:						@green;//sgm
+@successBackground:					lighten(@green, 58% );
+@successBorder:						darken(@successBackground, 30% );
+
+@infoText:							@blue;
+@infoBackground:					@blueLighter; //RCS
+@infoBorder:						darken(@blueLighter, 30% );
+
+
+// ----------- Grid --------------
+
+//Fluid grid SET
+//@gridColumns:						12;
+@gridGutterWidth:					2.564102564%; // or 2.127659574%;
+
+///DON CHANGE ABOVE VALUE
+//@gridRowWidth:					100%;
+//@gridColumnNoGutter:				round((@gridRowWidth / @gridColumns),9);
+//@gridColumnWidth:					round((@gridRowWidth - @gridGutterWidth * (@gridColumns - 1)) / @gridColumns, 9);
+
+// ----------- Tipography --------------
+
+@horizontalComponentOffset:			2em;
+
+
+
+
+// ------------------- ------- ---------------------
+// ------------- ADD FOR THIS PROJECT --------------
+// ------------------- ------- ---------------------

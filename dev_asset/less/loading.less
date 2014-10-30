@@ -1,0 +1,38 @@
+// ------------------------------------------------------------------
+//
+// [loading.less]
+//
+// Project:			swipeCarousel_1.0.0
+//
+// Description:     simple loading class
+//
+// Last change:     05/05/2013
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+	// ------------------- ------- --------------------
+	// ----------------- JS LOADING -------------------
+	// ------------------- ------- --------------------
+
+	// Hide element until js callback end
+	.js.no-document-ready,
+	.js .js-loading{
+		background-image: url('../images/spinloading.gif');
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.js.no-document-ready [role="main"] > *,
+	.js .js-loading > *{
+		visibility: hidden !important;
+	}
+	.js.no-document-ready{
+		height: 100%;
+		width: 100%;
+	}

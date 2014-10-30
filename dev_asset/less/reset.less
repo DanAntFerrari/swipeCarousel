@@ -1,0 +1,499 @@
+//------------------------------------------------------------------
+//
+// [reset.less]
+//
+// Project:        rcs_libreriarizzoli_1.0.1
+//
+// Description:     Reset some basic setting and usefull css class
+//
+// Last change:     03/06/13
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// -------------------------------------------------------------------
+
+
+
+// http://meyerweb.com/eric/tools/css/reset/ 
+// v2.0 | 20110126
+// License: none (public domain)
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	// vertical-align: baseline; ???? da tenere ???
+}
+// HTML5 display-role reset for older browsers
+article, aside, details, summary, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+		display: block;
+}
+html {
+		line-height: 1;
+}
+ol, ul {
+		list-style: none;
+}
+blockquote, q {
+		quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+		content: '';
+		content: none;
+}
+table {
+		border-collapse: collapse;
+		border-spacing: 0;
+}
+
+// ------------------- ------- ----------------------
+// ------- BASE STYLES: OPINIONATED DEFAULTS --------
+// ------------------- ------- ----------------------
+
+html,
+button,
+input,
+select,
+textarea {
+		color: #222;
+}
+
+// Base settings
+html{
+	// OLD ???font-size: @baseFontSize;
+	// OLD ???line-height:@baseLineHeight;
+	//font-size:62.5%; // 16px*0.625=10px=1em
+	//line-height:1.5;
+	-webkit-text-size-adjust: 100%;
+			-ms-text-size-adjust: 100%;
+	-webkit-overflow-scrolling : touch;
+	//-webkit-tap-highlight-color: rgba(0,0,0,0); // rimuove highlight quando si clicca su hover su ipad e iphone
+}
+
+// Remove text-shadow in selection highlight: h5bp.com/i
+// These selection declarations have to be separate.
+// Customize the background color to match your design.
+
+::-webkit-selection,
+::-moz-selection,
+::selection {
+	background: @selectionColor;
+	text-shadow: none;
+}
+
+// Remove background on images when selected
+img::-webkit-selection,
+img::-moz-selection,
+img::selection {
+	background: transparent;
+}
+
+// Remove default fieldset styles.
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+// Allow only vertical resizing of textareas.
+textarea {
+	resize: vertical;
+}
+
+// ------------------- ------- ----------------------
+// ---------- ADAPTED FROM NORMALIZE.CSS  -----------
+// ------------------- ------- ----------------------
+
+// Prevents modern browsers from displaying 'audio' without controls
+
+audio,
+canvas,
+video {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+// Prevents modern browsers from displaying 'audio' without controls
+audio:not([controls]) {
+		display: none;
+}
+
+// Focus states
+a:focus {
+	.tab-focus();
+}
+// Hover & Active
+a:hover,
+a:active {
+	outline: 0;
+}
+
+// Prevents sub and sup affecting line-height in all browsers
+sub,
+sup {
+	position: relative;
+	font-size: 75%;
+	line-height: 0;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+
+// Img border in a's and image quality
+
+
+img {
+	// Responsive images (ensure images don't scale beyond their parents)
+	max-width: 100%; // Part 1: Set a maxium relative to the parent
+	width: auto\9; // IE7-8 need help adjusting responsive images
+	height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+	// Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+	vertical-align: middle;
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+// Make sure embeds and iframes fit their containers 
+embed,
+iframe,
+object {
+	max-width: 100%;
+}
+
+// Prevent max-width from affecting Google Maps
+#map_canvas img,
+.google-maps img {
+	max-width: none;
+}
+
+/** FIX for Bootstrap and Google Maps Info window styes problem **/
+img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
+	max-width: none;
+}
+
+// Forms
+// Font size in all browsers, margin changes, misc consistency
+button,
+input,
+select,
+textarea {
+	margin: 0;
+	font-size: 100%;
+	vertical-align: middle;
+}
+button,
+input {
+	*overflow: visible; // Inner spacing ie IE6/7
+	line-height: normal; // FF3/4 have !important on line-height in UA stylesheet
+}
+// Inner padding and border oddities in FF3/4
+//button::-moz-focus-inner,
+//input::-moz-focus-inner { 
+//  padding: 0;
+//  border: 0;
+//}
+
+button,
+html input[type="button"], // Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio` and `video` controls.
+input[type="reset"],
+input[type="submit"] {
+		-webkit-appearance: button; // Corrects inability to style clickable `input` types in iOS.
+		cursor: pointer; // Improves usability and consistency of cursor style between image-type `input` and others.
+}
+label {
+	cursor: text;
+}
+select,
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="radio"],
+input[type="checkbox"] {
+		cursor: pointer; // Improves usability and consistency of cursor style between image-type `input` and others.
+}
+input[type="search"] { // Appearance in Safari/Chrome
+	.box-sizing(content-box);
+	-webkit-appearance: textfield;
+}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none; // Inner-padding issues in Chrome OSX, Safari 5
+}
+textarea {
+	overflow: auto; // Remove vertical scrollbar in IE6-9
+	vertical-align: top; // Readability and alignment cross-browser
+}
+
+// ------------------- ------- ----------------------
+// -------------- CHROME FRAME PROMPT ---------------
+// ------------------- ------- ----------------------
+
+.chromeframe {
+		margin: 0.2em 0;
+		background: #ccc;
+		color: #000;
+		padding: 0.2em 0;
+}
+
+// ------------------- ------- ----------------------
+// -------- USEFULL GENERAL CLASS UTILITIES ---------
+// ------------------- ------- ----------------------
+
+// Prevent callout
+
+.nocallout {
+		-webkit-touch-callout: none;
+}
+
+.pressed {
+		background-color: rgba(0, 0, 0, 0.7);
+}
+
+// A hack for HTML5 contenteditable attribute on mobile
+
+textarea[contenteditable] {
+		-webkit-appearance: none;
+}
+
+// A workaround for S60 3.x and 5.0 devices which do not animated gif images if they have been set as display: none */
+
+.gifhidden {
+		position: absolute;
+		left: -100%;
+}
+
+span.hidetext{
+	display:block;
+	height:0;
+	overflow:hidden;
+	position:absolute;
+	width:0;
+}
+
+//  Display toggling content
+.hide {
+		display: none;
+}
+.show {
+		display: block;
+}
+
+// ------------------- ------- ----------------------
+// ----------------- HELPER CLASSES -----------------
+// ------------------- ------- ----------------------
+
+// Image replacement
+//http://css-tricks.com/examples/ImageReplacement/
+
+.ir {
+	font: 0/0 a  !important;
+	text-shadow: none  !important;
+	color: transparent  !important;
+	// IE 6/7 fallback
+	*text-indent: -9999px  !important;
+}
+
+
+// Hide element until js is working	
+.js .loading{
+	visibility: hidden;
+	// Hide element until js is working
+}
+
+.hidden {	// Hide from both screenreaders and browsers: h5bp.com/u
+		display: none !important;
+		visibility: hidden;
+}
+
+// Hide only visually, but have it available for screenreaders: h5bp.com/v
+
+.visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+// Extends the .visuallyhidden class to allow the element to be focusable
+// when navigated to via the keyboard: h5bp.com/p
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+}
+
+// Just for assistive
+
+.assistive-text { display: none; }
+
+// Hide visually and from screenreaders, but maintain layout
+
+.invisible {
+		visibility: hidden;
+}
+
+// CSS image replacement
+// Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+
+.hide-text {
+		font: 0/0 a;
+		color: transparent;
+		text-shadow: none;
+		background-color: transparent;
+		border: 0;
+}
+
+// ------------------- ------- ----------------------
+// -------------------- CLEARFIX --------------------
+// ------------------- ------- ----------------------
+
+// Clearfix: contain floats
+// http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+//   
+// For modern browsers
+// 1. The space content is one way to avoid an Opera bug when the
+//    `contenteditable` attribute is included anywhere else in the document.
+//    Otherwise it causes space to appear at the top and bottom of elements
+//    that receive the `clearfix` class.
+// 2. The use of `table` rather than `block` is only necessary if using
+//    `:before` to contain the top-margins of child elements.
+
+.clearfix {
+		// Include this rule to trigger hasLayout and contain floats.text-align:
+		*zoom: 1; //    For IE 6/7 only
+		&:before,
+		&:after {
+				content: "";// 1
+				display: table;// 2
+		}
+		&:after {
+				clear: both;
+		}
+}
+
+
+// ------------------- ------- ----------------------
+// ----------------- PRINT STYLES -------------------
+// ------------------- ------- ----------------------
+
+// Inlined to avoid required HTTP connection: h5bp.com/r
+// Source: https://github.com/h5bp/html5-boilerplate/blob/master/css/main.css
+// edit and implement
+
+@media print {
+
+	* {
+		background: transparent !important;
+		color: #000 !important; // Black prints faster: h5bp.com/s
+		-webkit-box-shadow: none !important;
+		-moz-box-shadow: none !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+		filter: none!important;
+	}
+
+	a,
+	a:visited {
+		text-decoration: underline;
+	}
+
+	a[href]:after {
+		content: " (" attr(href) ")";
+	}
+
+	abbr[title]:after {
+		content: " (" attr(title) ")";
+	}
+
+	// Don't show links for images, or javascript/internal links
+	.ir a:after,
+	a[href^="javascript:"]:after,
+	a[href^="#"]:after {
+		content: "";
+	}
+
+	pre,
+	blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	thead {
+		display: table-header-group; // h5bp.com/t
+	}
+
+	tr,
+	img {
+		page-break-inside: avoid;
+	}
+
+	img {
+		max-width: 100% !important;
+	}
+
+	@page {
+		margin: 0.5cm;
+	}
+
+	p,
+	h2,
+	h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+	// how to show images on print exemple
+		
+		//selettore-elemento {
+		//list-style-image:  url("images/strip-bundle-single.png");
+		//display: list-item;
+		//list-style-position: inside;
+		//}
+	 
+}

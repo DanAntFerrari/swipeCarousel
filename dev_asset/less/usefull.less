@@ -1,0 +1,362 @@
+// ------------------------------------------------------------------
+//
+// [usefull.less]
+//
+// Project:			swipeCarousel_1.0.0
+//
+// Description:     usefull postion and text helper css class
+//
+// Last change:     05/05/2013
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+	// ------------------- ------- ---------------------
+	// ------------------- USEFULL ---------------------
+	// ------------------- ------- ---------------------
+
+	// Quick position
+
+	.relative{
+		position: relative;
+	}
+	.absolute{
+		position: absolute;
+	}
+	.absolute-left{
+		.absolute;
+		left:	0;
+		right:	auto;
+	}
+	.absolute-right{
+		.absolute;
+		right:	0;
+		left: 	auto;
+	}
+	.absolute-top{
+		.absolute;
+		top:	0;
+		bottom:	auto;
+	}
+	.absolute-btm{
+		.absolute;
+		bottom:	0;
+		top: 	auto;
+	}
+	.fixed{
+		position: fixed;
+	}
+	.fixed-left{
+		.fixed;
+		left:	0;
+		right:	auto;
+	}
+	.fixed-right{
+		.fixed;
+		right:	0;
+		left: 	auto;
+	}
+
+	// Quick floats
+	.fleft,
+	.pull-left {
+		position: relative;
+		float:left !important;
+	}
+	.fright,
+	.pull-right {
+		position: relative;
+		float:right !important;
+	}
+
+	.clear {
+		clear:both
+	}
+
+	// Quik width nopadding
+
+	.wnp{
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.wnp-xs {
+		width: 25%;
+	}
+	.wnp-sm {
+		width: 50%;
+	}
+	.wnp-lg  {
+		width: 75%;
+	}
+	.wnp-xl  {
+		width: 100%;
+	}
+
+	//for input
+	.prepend,
+	.postpend {
+		display: block;
+		float: left;
+	}
+	.postpend{
+		border-left: 0 none;
+		margin-right: -1px;
+	}
+
+	// Quick text position
+
+	.txt-center{
+		text-align: center !important;
+	}
+	.txt-right{
+		text-align: right !important;
+	}
+	.txt-left{
+		text-align: left !important;
+	}
+	.txt-lowercase{
+		text-transform: lowercase;
+	}
+	.txt-capitalize{
+		text-transform: capitalize;
+	}
+	.txt-uppercase{
+		text-transform: uppercase;
+	}
+	.txt-smallcaps{
+		font-variant:small-caps;
+	}
+
+	// Quick text SET
+	.txt-error {
+		color: @errorText;
+	}
+	.txt-warning {
+		color:@warningText;
+	}
+	.txt-attention {
+		color: #D9A200;
+	}
+	.txt-info {
+		color:@infoText;
+	}
+	.txt-success {
+		color:@successText;
+	}
+	// Quick bg SET
+	.bg-error {
+		background-color: @errorBackground;
+	}
+	.bg-warning {
+		background-color:@warningBackground;
+	}
+	.bg-attention {
+		background-color: @attentionBackground;
+	}
+	.bg-info {
+		background-color:@infoBackground;
+	}
+	.bg-success {
+		background-color:@successBackground;
+	}
+
+	// ------------------- ------- ----------------------
+	// -------------------- TYPO ------------------------
+	// ------------------- ------- ----------------------
+
+	.init-cap {
+		display: inline;
+		float: left;
+		font-size: 5em;
+		line-height: 0.4em;
+		padding: 0.25em 0.15em 0.3em 0;
+		text-transform: uppercase;
+		font-family:  @serifFontFamily;
+	}
+
+
+	// ------------------- ------- ---------------------
+	// ------------------- TABLE -----------------------
+	// ------------------- ------- ---------------------
+
+	// TABLE BACKGROUNDS
+
+	// Exact selectors below required to override .table-striped
+	/*
+	table.standard tbody tr {
+		&.confirm td {
+			background-color: @successBackground;
+		}
+		&.error td {
+			background-color: @errorBackground;
+		}
+		&.warning td {
+			background-color: @warningBackground;
+		}
+		&.info td {
+			background-color: @infoBackground;
+		}
+	}
+	*/
+
+	// ------------------- ------- ----------------------
+	// ----------------- ICON UTILITY -------------------
+	// ------------------- ------- ----------------------
+
+	// Icon Sizes
+	.icon-x {
+		line-height: 0;
+		font-size: 1.2em;
+	}
+	.icon-2x {
+		line-height: 0;
+		vertical-align: sub;
+		font-size: 2em;
+		&.brded {
+			border-width: 2px;
+			.border-radius(4px);
+		}
+	}
+	.icon-3x {
+		line-height: 0;
+		vertical-align: sub;
+		font-size: 3em;
+		&.brded {
+			border-width: 3px;
+			.border-radius(5px);
+		}
+	}
+	.icon-4x {
+		line-height: 0;
+		vertical-align: sub;
+		font-size: 4em;
+		&.brded {
+			border-width: 4px;
+			.border-radius(6px);
+		}
+	}
+
+	.icon-5x {
+		line-height: 0;
+		vertical-align: sub;
+		font-size: 5em;
+		&.icon-border {
+			border-width: 4px;
+			.border-radius(6px);
+		}
+	}
+
+	// ------------------- ------- ----------------------
+	// -------------------- BUTTON ----------------------
+	// ------------------- ------- ----------------------
+
+	// Button Sizes
+	.btn-xs {
+		.btn;
+		.smaller;
+	}
+	.btn-sm {
+		.btn;
+		.small;
+	}
+	.btn-lg {
+		.btn;
+		.lead;
+	}
+	.btn-xl {
+		.btn;
+		.leader;
+	}
+
+
+	// ------------------- ------- ----------------------
+	// -------------------- BADGE -----------------------
+	// ------------------- ------- ----------------------
+
+	//from eire on
+	.content-box {
+		background-color: #F2F2F2;
+		//.box-shadow( 0 3px 3px #CCCCCC inset);
+		margin: 1em 0;
+		padding: 10px;
+	}
+
+	ul.download{
+		li{
+			margin:0.3em 0;
+		}
+		li a{
+			border-bottom: 1px solid #DDDDDD;
+			display:block;
+			color: #1F2831;
+			&:hover{
+				color: darken( #1F2831, 25%)
+			}
+		}
+		li:nth-child(2n) a{
+			color:lighten(#1F2831,15%);
+			&:hover{
+				color: lighten(#1F2831, 40%)
+			}
+		}
+	}
+
+	.evidence {
+		//.box-shadow (0 0 5px #ccc);
+		//.box-shadow(0 0px 1px 1px #CCCCCC);
+		position:relative;
+	}
+
+
+	// ------------------- ------- ----------------------
+	// ---------------- FXED POSITION -------------------
+	// ------------------- ------- ----------------------
+	.win-fx {
+		right: 15px;
+		width: 256px;
+		z-index: 1000;
+		margin: 0;
+		.box-shadow(0 0 8px rgba(0,0,0,.6));
+		padding: 0.5em 20px 0.5em 14px;
+		position: fixed;
+		border: 1px solid #ccc;
+		&.error {
+			background-color:@errorBackground;
+		}
+		&.warning {
+			background-color:@warningBackground;
+		}
+		&.attention {
+			background-color: @attentionBackground;
+		}
+		&.success {
+			background-color:@successBackground;
+		}
+		&.info {
+			background-color:@infoBackground;
+		}
+	}
+	.win-fx-top {
+		.win-fx;	//extend win-fx
+		top: 1px;
+		left: 50%;
+		margin-left: -128px;
+	}
+	.win-btm-fx, //garantisco compatibilità vecchia class
+	.win-fx-btm {
+		.win-fx;	//extend win-fx
+		bottom: 1px;
+	}

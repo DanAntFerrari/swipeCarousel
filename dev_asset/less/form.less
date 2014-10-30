@@ -1,0 +1,487 @@
+// ------------------------------------------------------------------
+//
+// [form.less]
+//
+// Project:			swipeCarousel_1.0.0
+//
+// Description:     form, input select textarea status
+//
+// * Start on:		05/05/2014
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+
+// ----------- GENERAL STYLES --------------
+
+// Normalize non-controls
+
+// Restyle and baseline non-control form elements.
+fieldset {
+	margin: 0;
+	padding: 0.643em 0;
+	border: 0;
+}
+
+// Groups of fields with labels on top (legends)
+legend {
+	display: block;
+	padding: 0;
+	//margin-bottom: lineHeightComputed;  Disable RCS
+	margin: 0.643em 0;//add for RCS
+	//font-size: (@fontSizeBase * 1.5);  Disable RCS
+	line-height: 1; //inherit; Disable RCS
+	border: 0;
+	//border-bottom: 1px solid #eee;  Disable RCS
+
+	// Small
+	.small,
+	small {
+		font-size: 1em;
+	}
+}
+
+
+
+// Identify controls by their labels
+label {
+	display: block;
+    margin-bottom: 0.357em; // RCS
+    padding-top: 0.65em;
+}
+
+label.label-inline {
+	.inlineblock();
+	margin-right: 0.357em;
+}
+
+// Common form controls
+
+// select
+// textarea
+// input[type="text"]
+// input[type="password"]
+// input[type="datetime"]
+// input[type="datetime-local"]
+// input[type="date"]
+// input[type="month"]
+// input[type="time"]
+// input[type="week"]
+// input[type="number"]
+// input[type="email"]
+// input[type="url"]
+// input[type="search"]
+// input[type="tel"]
+// input[type="color"]
+
+textarea,
+input,
+select,
+.uneditable-input {
+	.inlineblock();
+	font-size: 1em;
+	line-height: 110%;
+	width: 100%;
+	min-height: @inputHeight;
+	padding:@inputPadding;
+	margin-bottom: 0.7em;
+	//#gradient > .vertical(#f7f7f8 , @inputBackground);
+	background-color: @inputBackground;
+	border: 1px solid @inputBorder;
+	//.shadow-double(0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset);
+	//.border-radius(@inputBorderRadius);
+	.box-sizing(border-box);
+}
+
+
+.btn{
+	//RESET pure-button
+	font-family: inherit;
+	-moz-user-select: none;
+	cursor: pointer;
+	display: inline-block;
+	line-height: normal;
+	text-align: center;
+	vertical-align: baseline;
+	white-space: nowrap;
+	border: 0 none transparent;
+	font-size: 1.286em;
+	//padding: 0.222em 3em 0.333em 0.556em; //RELATED TO 18px
+	padding: 0.222em 0.556em 0.333em 0.556em; //RELATED TO 18px
+	position: relative;
+	//padding: @inputPadding;
+	text-decoration: none;
+	//.trasition(box-shadow 0.1s linear);
+
+}
+html.touch [class*="btn"]{
+	padding-top: 0.444em;
+	padding-bottom: 0.555em;
+}
+
+input[type="submit"],
+input[type="button"],
+button{
+	.btn;
+	&:active,
+	&.active {
+		cursor:progress;
+	}
+}
+
+// form input btn append prepend
+input + .btn,
+.uneditable-input + .btn{
+	display: block;
+	float: left;
+	position: relative;
+	margin-bottom: 0;
+	.border-radius(@inputBorderRadius 0 0 @inputBorderRadius);
+	border-right: 0 none;
+}
+
+
+select {
+	*margin-top: 4px; // For IE7, add top margin to align select with labels
+	font-style: normal;
+	padding-left:0.7em;
+	height: auto;
+	font-size: 1em;
+	background-color: @inputBackground;
+	//#gradient > .vertical(#f8f8f8, @inputBackground);
+	//.box-shadow(inset 0 1px 1px rgba(0, 0, 0, .1));
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+	padding-bottom: 0.45em;
+	> option {
+		text-shadow:none;
+		background: white;
+	}
+	> option[value=""] {
+		text-shadow:none;
+		background: white;
+	}
+}
+// just Webkit
+
+//Textarea resize control is available via the CSS3
+textarea { resize:both; } /* none|horizontal|vertical|both */
+textarea.vert { resize:vertical; }
+textarea.noResize { resize:none; }
+textarea.horiz { resize:horizontal; max-width:400px; min-width:200px; }
+
+.uneditable-textarea {
+	width: auto;
+	height: auto;
+}
+
+// Inputs within a label
+label input,
+label textarea,
+label select {
+	display: block;
+}
+
+// Adjust output element
+output {
+  display: block;
+}
+
+// Mini reset for unique input types
+input[type="image"],
+input[type="checkbox"],
+input[type="radio"] {
+	width: auto;
+	height: auto;
+	padding: 0;
+	margin: 3px 0;
+	*margin-top: 0; // IE7
+	line-height: normal;
+	cursor: pointer;
+	background-color: transparent;
+	border: 0 \9; // IE9 and down
+	.border-radius(0);
+}
+
+input[type="image"] {
+	border: 0;
+}
+// Override content-box in Normalize (* isn't specific enough)
+input[type="search"] {
+  .box-sizing(border-box);
+}
+
+//Disable spin buttons on input type=“number” and input slider type=“range”	in Webkit browsers
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button,
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+//// Reset the file input to browser defaults
+//input[type="file"] {
+//	width: auto;
+//	padding: initial;
+//	line-height: initial;
+//	background-color: @inputBackground;
+//	background-color: initial;
+//	border: initial;
+//	.box-shadow(none);
+//}
+
+// Set the height of file controls to match text inputs
+input[type="file"] {
+  display: block;
+}
+
+// Make range inputs behave like textual form controls
+input[type="range"] {
+  display: block;
+  width: 100%;
+}
+
+// Help out input buttons
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	width: auto;
+	height: auto;
+}
+
+
+//// Reset line-height for IE
+//input[type="file"] {
+//	*margin-top: 4px; // For IE7, add top margin to align select with labels
+//	line-height: 18px \9;
+//	padding-bottom: 0.8em;
+//	padding-top: 0.7em;
+//}
+
+// Chrome on Linux and Mobile Safari need background-color
+
+// Make multiple select elements height not fixed
+select[multiple],
+select[size] {
+	height: auto;
+}
+
+// Remove shadow from image inputs
+input[type="image"] {
+	.box-shadow(none);
+}
+
+// Make textarea height behave
+textarea {
+	min-height: 4em;
+	height: auto;
+}
+
+// Hidden inputs
+input[type="hidden"] {
+	display: none;
+}
+
+
+// ----------- CHECKBOXES & RADIOS --------------
+
+// Indent the labels to position radios/checkboxes as hanging
+.radio,
+.checkbox {
+	min-height: 1.1em; // clear the floating input if there is no label text
+	padding-left:1.4em;
+	cursor: pointer;
+}
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+	float: left;
+	margin-left: -1.1em;
+//	margin-right: 0.4em;
+}
+
+// Radios and checkboxes on same line
+// TODO v3: Convert .inline to .control-inline
+.radio.inline,
+.checkbox.inline {
+	.inlineblock();
+	padding-top: 0.5em;
+	margin-bottom: 0;
+	vertical-align: middle;
+}
+.radio.inline + .radio.inline,
+.checkbox.inline + .checkbox.inline {
+	margin-left: 1em; // space out consecutive inline controls
+}
+
+
+// ----------- FOCUS STATE --------------
+
+input,
+textarea {
+	//.box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+	@transition: border linear .2s, box-shadow linear .2s;
+	.transition(@transition);
+}
+input:focus,
+textarea:focus {
+	background-color:@inputFocusBackground;
+	border-color: @inputFocusBorder;
+	outline: 0;
+	outline: thin dotted \9; // IE6-9
+	//.box-shadow(~"inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6)");
+	.box-shadow(~"inset 0 1px 1px @inputFocusBorder");
+}
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+select:focus {
+	.tab-focus();
+	.box-shadow(none); // override for file inputs
+}
+
+
+
+// ----------- INPUT SIZES --------------
+
+
+// Grid style input sizes
+input[class*="span"],
+select[class*="span"],
+textarea[class*="span"],
+.uneditable-input[class*="span"]{
+	float: none;
+	margin-left: 0;
+}
+/*
+// Redeclare since the fluid row class is more specific
+.row-fluid input[class*="span"],
+.row-fluid select[class*="span"],
+.row-fluid textarea[class*="span"],
+.row-fluid .uneditable-input[class*="span"] {
+	float: none;
+	margin-left: 0;
+}
+*/
+
+// ----------- GRID SIZING FOR INPUTS --------------
+
+//#grid > .input (12, @gridGutterWidth);
+
+
+
+// ----------- DISABLED AND READ-ONLY STATE --------------
+
+//read-only inputs
+.readonly,
+input[readonly],
+textarea[readonly].readonly,
+select[disabled].readonly,
+input[type="radio"][disabled].regular-radio + label span.sexy,
+input[type="checkbox"][disabled].regular-checkbox + label span.sexy {
+	//cursor: not-allowed;
+	cursor: text;
+	background-color: @inputReadonlyBackground;
+	border-color: @inputReadonlyBorder;
+}
+
+// Disabled and read-only inputs
+textarea[readonly] {
+	cursor: text;
+	//background-color: @inputBackground;
+	//border-color: @inputDisabledBorder;
+}
+
+// Disabled and read-only inputs
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[type="radio"][disabled].regular-radio + label span.sexy,
+input[type="checkbox"][disabled].regular-checkbox + label span.sexy{
+	cursor:text;
+	border-color: @inputDisabledBorder;
+	background-color: @inputDisabledBackground;
+}
+
+// Disabled active status
+.disabled:active,
+input[disabled]:active,
+select[disabled]:active,
+textarea[disabled]:active,
+input[type="radio"][disabled]:active,
+input[type="checkbox"][disabled]:active,
+input[type="radio"][disabled].regular-radio:active + label span.sexy,
+input[type="checkbox"][disabled].regular-checkbox:active + label span.sexy{
+	cursor: not-allowed;
+}
+// ----------- FORM FIELD FEEDBACK STATES --------------
+
+// Warning
+.control-group.warning {
+	.formFieldState(@warningText, @warningText, @warningBackground);
+}
+// Success
+.control-group.success {
+	.formFieldState(@successText, @successText, @successBackground);
+}
+// Attention
+.control-group.attention {
+	.formFieldState(@attentionText, @attentionText, @attentionBackground);
+}
+// Error
+.control-group.error {
+	.formFieldState(@errorText, @errorText, @errorBackground);
+}
+// Success
+.control-group.info {
+	.formFieldState(@infoText, @infoText, @infoBackground);
+}
+
+// ----------- HTML5 invalid states --------------
+
+// Shares styles with the .control-group.error above
+//input:focus:required:invalid,
+//textarea:focus:required:invalid,
+//select:focus:required:invalid {
+//	color: #b94a48;
+//	border-color: #ee5f5b;
+//	&:focus {
+//		border-color: darken(#ee5f5b, 10%);
+//		.box-shadow(0 0 6px lighten(#ee5f5b, 20%));
+//	}
+//}
+
+// Placeholder text gets special styles; can't be bundled together though for some reason
+.placeholder(@placeholderText);
+
+
+// ----------- HELP TEXT --------------
+
+.help-block,
+.help-inline {
+	color:  lighten(@textColor, 15%); // lighten the text some for contrast
+	//font-size: 0.75em; Disable RCS
+}
+
+.help-block {
+	display: block; // account for any element using help-block
+	margin-bottom: @lineHeightComputed;
+}
+
+.help-inline {
+	.inlineblock();
+	vertical-align: middle;
+	padding-left: 5px;
+}

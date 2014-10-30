@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]> <html id="iem7" lang="it" class="no-js no-document-ready iem7"> <![endif]-->
+<!--[if lt IE 7 ]><html id="ie6" lang="it" class="no-js no-document-ready ie ie6 lt-ie7 lt-ie8 lt-ie9"><![endif]-->
+<!--[if IE 7 ]><html id="ie7" lang="it" class="no-js no-document-ready ie ie7 lt-ie8 lt-ie9"><![endif]-->
+<!--[if IE 8 ]><html id="ie8" lang="it" class="no-js no-document-ready ie ie8 lt-ie9"><![endif]-->
+<!--[if IE 9 ]><html id="ie9" lang="it" class="no-js no-document-ready ie ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="it" class="no-js no-document-ready"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<!-- Page Title -->
+	<title>DEMO swipeCarousel_1.0.0</title>
+
+	<!--SEO: integrare contenuto description -->
+	<meta name="description" content="">
+
+
+	<!-- HTML5 elements to be styled and contain children while being printed in IE 6-8. - https://github.com/aFarkas/html5shiv/archive/master.zip -->
+	<!--[if lt IE 9]><script src="js/vendor/html5shiv-printshiv.js"></script><![endif]-->
+
+	<!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+	<script>
+		(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")
+	</script>
+
+	<!-- modernizr-2.7.1.min load before body -->
+	<script type="text/javascript" src="js/vendor/modernizr-2.7.1.min.js"></script>
+
+	<!-- jquery-1.11.0.min load before body -->
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+
+	<!-- css and head common stuff  -->
+
+	<!-- Mobile meta - Device width and scale -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+
+	<meta content='width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0,minimal-ui' name='viewport' >
+	<!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+	<!--[if IEMobile]><meta http-equiv="cleartype" content="on"><![endif]-->
+
+	<!-- Default CSS by WIP -->
+	<link rel="stylesheet" media="screen" href="css/style.min.css">
+	<link rel="stylesheet" media="screen and (min-width: 980px)" href="css/desktop.min.css">
+	<!--[if (lt IE 9)&(!IEMobile)]><link rel="stylesheet" href="css/desktop.min.css" media="screen"><![endif]-->
+
+</head>
+
+
+<body>
+
+
+	<!-- HEADER -->
+
+	<!-- MAIN -->
+	<!-- every page has a class name like tpl file name -->
+	<div role="main" id="main" class="content">
+		<article>
+			<hgroup>
+				<h1>swipeCarousel</h1>
+				<h2>Super simple carousel</h2>
+			</hgroup>
+			<p>Slider created for sgm marcopolo/unieuro mobile project for touch drag and swipe.</p>
+			<p>Option for outoslide, arrow, indix point item for row;
+			<div id="carousel_demo" class="carousel">
+				<ul>
+					<li>
+						<a href="//google.com">
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide1"></source>
+								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide1"></source>
+								<!--[if IE 9]></video><![endif]-->
+								<img alt="Slide1" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide1">
+							</picture>
+						</a>
+					</li>
+					<li>
+						<a href="//google.com">
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide2"></source>
+								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide2"></source>
+								<!--[if IE 9]></video><![endif]-->
+								<img alt="Slide2" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide2">
+							</picture>
+						</a>
+					</li>
+					<li>
+						<a href="//google.com">
+							<picture>
+								<!--[if IE 9]><video style="display: none;"><![endif]-->
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide3"></source>
+								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide3"></source>
+								<!--[if IE 9]></video><![endif]-->
+								<img alt="Slide3" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide3">
+							</picture>
+						</a>
+					</li>
+				</ul>
+			</div>
+<pre>
+/* ===================================
+ * Carousel option if slide length > 0
+
+var options = {
+		slideshow	: {
+			// Default: false 	--> Set true for turn it on
+			state 		: false,
+			// Default: 5000	--> Set time value (milliseconds)
+			timerInt	: 5000,
+			// Default: 1 		--> Set number of times (0 for infinite)
+			stopLoop	: 1
+		},
+		nav	: {
+			// Default: true	-->  Set true for turn it off
+			state		: true,
+			// Default: true	-->  Set true for turn it off
+			arrow		: true,
+			// Default: true	-->  Set true for turn it off
+			spot		: true
+		}
+		item	:{
+			// Default: 1 		--> Set number of item for row
+			forRow    	: 1
+		}
+	};
+
+=================================== */
+</pre>
+			<hr>
+			<h4>Good reference ad alternative to swipeCarousel.git:</h4>
+			<ul class="styled">
+				<li><a href="//github.com/kenwheeler/slick/blob/master/slick/slick.js">slick.js</a></li>
+			</ul>
+		</article>
+		<!-- FOOTER -->
+
+
+
+
+
+	</div><!-- /#main .content .container -->
+
+	<!-- modernizr-2.6.2.min AND jquery-1.11.0.min / load before body tag -->
+
+	<!--SCRIPTS ASSETS SHOULD BE LOADED HERE AFTER BODY ENDS-->
+	<script type="text/javascript" src="js/vendor/jquery/jquery.hammer.min.js"></script>
+	<script type="text/javascript" src="js/vendor/greensock/TweenMax.min.js"></script>
+
+	<script type="text/javascript" src="dist/carousel.min.js"></script>
+	<!--script type="text/javascript" src="js/demo.js"></script-->
+
+		<script type="text/javascript">
+		$(document).ready(function (){
+				var optionsA = {nav:{arrow:false}};
+				var optionsB = {nav:{state:true, arrow:true},item:{forRow:2}};
+				var optionsC = {slideshow:{state:true}};
+
+				$("#carousel_demo").swipeCarousel();
+				$('html').removeClass('no-document-ready').addClass('document-ready');
+
+
+			});
+		</script>
+
+	</body>
+	</html>

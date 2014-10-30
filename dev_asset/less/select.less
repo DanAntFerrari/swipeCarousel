@@ -1,0 +1,117 @@
+// ------------------------------------------------------------------
+//
+// [select.less]
+//
+// Project:			swipeCarousel_1.0.0
+//
+// Description:		simple sexy select style
+//
+// Start on:		05/05/2013
+//
+// Based on:		HTML5 Boilerplate pimped by Wip
+// Copyright:		2014 Wip Italia S.r.l.
+// Author URI:		http://www.wipitalia.it/
+//
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+.js .blk-gn-select {
+	position: relative;
+	.inlineblock();
+	//width: 100%;
+}
+.js .blk-gn-select.n-select select {
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0.001;
+	content: " ";
+	//width: 1em;
+	//height: 1em;
+}
+.js .blk-gn-select.n-select select,
+.js .blk-gn-select .nh-select {
+	.box-sizing(border-box);
+	/* the hidden select and the button should line up */
+	padding:@inputPadding;
+	margin: 0;
+	font-size: 1em;
+	line-height: 110%;
+	width: 100%;
+	min-height: @inputHeight;
+	//background-color: @inputBackground;
+	border: 1px solid @inputBorder;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-wrap: normal;
+	cursor: pointer;
+}
+.js .blk-gn-select .nh-select {
+	.inlineblock();
+	margin-bottom: 0.7em;
+	font-style: normal;
+	height: auto;
+	overflow: hidden;
+	padding-right:1.7em;
+	background-color: @inputBackground;
+}
+.js .nh-select.nh-focus {
+	border-color:@blueDark;
+	//box-shadow: 0 0 .4em rgba(200,200,200,.8);
+}
+.js .nh-select .arrow {
+    background-color: @gray;
+    color: white;
+    display: block;
+    height: 2em;
+    line-height:2em;
+    position: absolute;
+    right: 1px;
+		text-align: center;
+		top: 1px;
+		width: 1.7em;
+}
+.js .blk-gn-select .label-text {
+	display: inline-block;
+	padding: 0 1em .3em 0;
+}
+
+.js .search-form .blk-gn-select{
+	width: 25%;
+	float: left;
+	.inlineblock();
+	.nh-select,
+	.arrow {
+		background: @blueDark;
+		color: white;
+	}
+	.nh-select{
+		border-color: @blueDark;
+	}
+	.nh-select.nh-focus {
+		border-color: @blue;
+	}
+}
+
+.js .blk-gn-select .nh-select.readonly{
+	//cursor: not-allowed;
+	cursor: text;
+	background-color: @inputReadonlyBackground;
+	border-color: @inputReadonlyBorder;
+}
+
+.js .blk-gn-select .nh-select.disabled{
+	cursor:text;
+	border-color: @inputDisabledBorder;
+	background-color: @inputDisabledBackground;
+}
+.js .blk-gn-select .nh-select.disabled:active{
+		cursor: not-allowed;
+}
+/*
+.js.touch .blk-gn-select .nh-select{
+	display: none;
+}
+*/

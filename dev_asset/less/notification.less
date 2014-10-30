@@ -1,0 +1,130 @@
+// ------------------------------------------------------------------
+//
+// [notification.less]
+//
+// Project:			admin-wip_1.3.2
+//
+// Description:   	notification
+//
+// First change:     03/12/2013
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+	// ------------------- ------- ----------------------
+	// ------------- CLOSE BUTTON AND LINK --------------
+	// ------------------- ------- ----------------------
+
+	.close {
+		position: absolute;
+		right: 0.5em;
+		top: 0.5em;
+		background: none;
+		border: 0 none;
+		cursor: pointer;
+		padding: 0;
+		line-height: 100%;
+		color: black;
+		font-size: 1.5em;
+		font-weight: bold;
+		.opacity(0.2);
+		text-shadow: 0 1px 0 white;
+		font-family: Arial,sans-serif;
+		.transition(all 300ms ease 0s);
+		&:hover,
+		&:active{
+			color:lighten(@red, 10%);
+			.opacity(1);
+			.rotateZ(90deg);
+		}
+	}
+	a.close:hover{
+		text-decoration: none;
+	}
+	html.touch .close{
+		font-size: 2em
+		right: 0.1em;
+		top: 0.1em;
+	}
+	
+	.notification .coutdown{
+		position: absolute;
+		right: 0.5em;
+		top: 0.5em;
+		background: none;
+		border: 0 none;
+		cursor: pointer;
+		padding: 0;
+		line-height: 100%;
+		color: black;
+		font-size: 1.5em;
+		font-weight: bold;
+		.opacity(0.2);
+		text-shadow: 0 1px 0 white;
+		font-family: Arial,sans-serif;
+		.transition(all 300ms ease 0s);
+	}
+	
+
+	// ------------------- ------- ---------------------
+	// ---------------- NOTIFICATION --------------------
+	// ------------------- ------- ----------------------
+
+	.notification {
+		position: relative;
+		padding:0.85em 1.3em;
+		margin:0 0 0.2em 0;
+		color:@grayDark;
+		font-size:1em;
+		border-bottom-width: 1px;
+		border-bottom-style: solid;
+
+		a.close {
+			padding: 0 0.7em;
+			position: absolute;
+			right: 0;
+		}
+	}
+
+	.notification{
+		&.error {
+			border-color: @errorBorder;
+			color: @errorText;
+		}
+		&.warning {
+			border-color: @warningBorder;
+			color:@warningText;
+		}
+		&.attention {
+			border-color: @attentionBorder;
+			color:@attentionText;
+		}
+		&.success {
+			border-color: @successBorder;
+			color:@successText;
+		}
+		&.info {
+			border-color: @infoBorder;
+			color:@infoText;
+		}
+		p {
+			color:@grayDark; 
+		}
+		&.top{
+			margin-bottom: 0;
+		}
+		&.debugging {
+			position:fixed; bottom:0;left:0;width:100%;background:darken(white,10%);
+		}
+	}

@@ -1,0 +1,373 @@
+//------------------------------------------------------------------
+// [typography.less]
+//
+// Project:			arlom_1.0.0
+//
+// Description:     Headings, body text, lists, code, and more for a versatile and durable typography system
+//
+// Start on:     	03/10/2013
+//
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+// Credits notes:
+//
+// What follows is the result of much research on cross-browser styling.
+// Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+// Kroc Camen, the H5BP dev community and team, and @mdo and @fat for bootstrap.
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+//------------------------------------------------------------------
+
+
+
+// ------------------- ------- ----------------------
+// ------------------ BODY TEXT ---------------------
+// ------------------- ------- ----------------------
+
+.lead {
+	//font-size: 120%;
+	font-size: @fontSzh3; //rcs;
+}
+.leader {
+	//font-size: 140%;
+	font-size: @fontSzh4; //rcs;
+}
+p {
+	line-height: 1.1;
+	margin-bottom: @lineHeightComputed;
+	small {
+		font-size: @fontSizeBase - 2;
+	}
+	&.lead {
+	line-height: 110%;
+	}
+}
+
+.small,
+small {
+	//font-size: 85%;
+	font-size: 85.7%; //12 su 14
+	line-height: 1;
+}
+.smaller{
+	//font-size: 75%;
+	font-size: 71.4%; //10 su 14
+	line-height: 1;
+}
+cite {
+	font-style: normal;
+}
+
+ins,
+mark{
+	background-color: @selectionColor;
+}
+
+// ------------------- ------- ---------------------
+// ------------------ HEADINGS ---------------------
+// ------------------- ------- ---------------------
+
+.h1, .h2, .h3, .h4, .h5, .h6,
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	color: @headingsColor;
+	line-height: 1.1;
+	text-rendering: optimizelegibility; // Fix the character spacing for headings
+	//text-shadow:1px 1px 1px @grayDark;
+	small {
+		color: @grayLight;
+		line-height: 1.1;
+	}
+}
+.h1,h1 {
+	font-size: @fontSzh1;
+	margin: 0 0 1em 0;
+	small{
+		font-size: 1em;
+	}
+}
+
+.h2,h2 {
+	font-size: @fontSzh2;
+	margin: 1.2em 0 0.4em 0;
+	small{
+		font-size: 1em;
+	}
+}
+.h3,h3 {
+	font-size: @fontSzh3;
+	margin: 1.2em 0 1em 0;
+	small{
+		font-size: 1em;
+	}
+}
+h4, h5, h6 {
+	line-height: 1;
+	//line-height: @lineHeightBase;
+}
+h4 {
+	//font-size: 1.1em;
+	font-size:1.286em;
+	margin: 0.2em 0 1em 0;
+	small{
+		font-size: 90%;
+	}
+}
+h5 {
+	font-size: 1em;
+	margin: 0.857em 0; // add RCS
+	//text-transform: uppercase; //disbale RCS
+}
+h6 {
+	font-size: 1em;
+	color: @grayLight;
+	text-transform: uppercase;
+}
+// Page header
+
+hgroup{
+	margin: 0 0 1em;
+	h1,h2,h3,h4,h5,h6 {
+		margin: 0;
+	}
+}
+.page-header,
+header{
+	h1, h2, h3, h4, h5, h6{
+		margin:0;
+	}
+}
+// ------------------- ------- ---------------------
+// -------------------- LISTS ----------------------
+// ------------------- ------- ---------------------
+
+// Inline turns list items into inline-block
+ol.inline,
+ul.inline {
+  padding-left: 0;
+  list-style: none;
+  > li {
+   	.inlineblock();
+	padding-right: 0.5em;
+    &:first-child{
+		padding-right: 0;
+    }
+  }
+}
+
+ol.styled,
+ul.styled {
+	margin: 0 0 (1em * @lineHeightBase) 1.2em;
+	padding: 0;
+	li {
+		line-height: @lineHeightBase;
+	}
+}
+ul.styled ul,
+ul.styled ol,
+ol.styled ol,
+ol.styled ul {
+	margin-bottom: 0;
+	margin-left: 1.2em;
+}
+ul.styled {
+	list-style: disc outside none;
+}
+// Nested list-style types for unordered lists
+ul.styled ul,
+ol.styled ul {
+	list-style: circle outside none;
+}
+// Nested list-style types for ordered lists
+ol.styled          { list-style: decimal; }
+ol.styled ol       { list-style: upper-alpha; }
+ol.styled ol ol    { list-style: lower-roman; }
+ol.styled ol ol ol { list-style: lower-alpha; }
+
+// Description Lists
+dl {
+  margin-bottom: @lineHeightComputed;
+}
+dt,
+dd {
+  line-height: @lineHeightBase;
+}
+dt {
+  font-weight: bold;
+}
+// Horizontal layout (like forms)
+.dl-horizontal {
+	position: relative;
+  .clearfix(); // Ensure dl clears floats if empty dd elements present
+  dt {
+    float: left;
+    width: 32%;
+    clear: left;
+    text-align: right;
+    .text-overflow();
+  }
+  dd {
+    margin-left: @horizontalComponentOffset;
+  }
+}
+
+
+// ------------------- ------- ---------------------
+// -------------------- MISC -----------------------
+// ------------------- ------- ---------------------
+
+del {
+	color: #777;
+	text-decoration: line-through;
+}
+
+details {
+	cursor: pointer;
+}
+
+// Horizontal rules
+hr {
+	// A better looking default horizontal rule
+	display: block;
+	margin: @lineHeightComputed 0;
+	height: 1px;
+	padding: 0;
+	border: 0;
+	border-top: 1px solid @hrBorder;
+	border-bottom: 1px solid white;
+}
+
+small hr{
+	margin:0.35em 0;
+}
+
+// Emphasis
+// We remebwer that inside html5 document em and strong has seo value (no b or i tag)
+b,
+strong{
+	//font-weight: 700;
+	color: black; //rcs
+}
+em,
+i {
+	font-style: italic;
+}
+.muted {
+	color: @gray;
+}
+.lightmuted {
+	color: @grayLight;
+}
+u {
+	text-decoration: underline;
+}
+
+// Abbreviations and acronyms
+acronym,
+dfn[title],
+abbr[title] {
+	cursor: help;
+}
+//Address styling not present in IE 8/9, Safari 5, and Chrome
+abbr.initialism {
+	font-size: 90%;
+	text-transform: uppercase;
+}
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+abbr a {
+	text-decoration: none;
+}
+acronym {
+	text-transform: uppercase;
+}
+
+
+
+// Blockquotes
+blockquote {
+	padding: 0 0 0 1em;
+	margin:  0 0 1em 3em;
+	border-left: 5px solid @grayLighter;
+	font-family:  @serifFontFamily;
+	p {
+		margin-bottom: 0;
+		//#font > .shorthand(16px,300,@lineHeightBase * 1.25);
+	}
+	small {
+		display: block;
+		line-height: @lineHeightBase;
+		color: @gray;
+		&:before {
+			content: '\2014 \00A0';
+		}
+	}
+	// Float right with text-align: right
+	&:before {
+	    color: #999999;
+	    content: '“';
+	    display: block;
+	    font: italic 400%/1 Cochin,Georgia,"Times New Roman",serif;
+	    height: 0;
+	    margin-left: -0.95em;
+	}
+	&.pull-right {
+		float: right;
+		padding-right: 15px;
+		padding-left: 0;
+		border-right: 5px solid @grayLighter;
+		border-left: 0;
+		p,
+		small {
+			text-align: right;
+		}
+	}
+}
+
+// Quotes
+q:before,
+q:after{
+	content: "";
+}
+
+// Set consistent <q> types
+q {
+	quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+// Addresses
+address {
+	display: block;
+	margin-bottom: @lineHeightBase;
+	font-style: normal;
+	line-height: @lineHeightBase;
+}
+
+// ------------------- ------- ---------------------
+// ------------------ PRE/CODE ---------------------
+// ------------------- ------- ---------------------
+pre {
+    background-color: #F5F5F5;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px 4px 4px 4px;
+    display: block;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+code, pre {
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+    font-size: 12px;
+    padding: 0 3px 2px;
+}

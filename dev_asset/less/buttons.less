@@ -1,0 +1,340 @@
+// ------------------------------------------------------------------
+//
+// [buttons.less]
+//
+// Project:			swipeCarousel_1.0.0
+//
+// Description:     buttons. style
+/*
+ * * Start on:		12/05/2014
+ */
+// Based on:        HTML5 Boilerplate pimped by Wip
+// Copyright:       2014 Wip Italia S.r.l.
+// Author URI:      http://www.wipitalia.it/
+//
+//
+// -------------------------------------------------------------------
+// this file is minimized and inport by style.less
+// ------------------------------------------------------------------
+
+
+	// ------------------- ------- ----------------------
+	// ------------------- BUTTONS ----------------------
+	// ------------------- ------- ----------------------
+
+	//BLUE
+	.btn-link{
+		color: @blue;
+		font-size: inherit;
+		padding:inherit;
+		background: none;
+	}
+
+	//BLUE
+	.btn-1{
+		.btn;
+		background: @blue;
+		color: white;
+		&:hover{
+			background: lighten(@blue, 10%);
+			color: white;
+		}
+		&:active,
+		&.active {
+			background: darken(@blue, 10%);
+			color: white;
+		}
+		&:-moz-window-inactive{
+			background: lighten(@blue, 20%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background: lighten(@blue, 20%);
+		}
+	}
+		//BLUE light ebook
+	.btn-2{
+		.btn;
+		background: @blueLight;
+		color: white;
+		&:hover{
+			background: lighten(@blueLight, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(@blueLight, 10%);
+		}
+		&:-moz-window-inactive{
+			background: lighten(@blueLight, 20%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background: lighten(@blueLight, 20%);
+		}
+	}
+	//GRAY RCS
+	.btn-3{
+		.btn;
+		background: #AAAAAA;
+		color: white;
+		&:hover{
+			background: lighten(#AAAAAA, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(#AAAAAA, 10%);
+		}
+		&:-moz-window-inactive{
+			background: lighten(#AAAAAA, 20%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background: lighten(#AAAAAA, 20%);
+		}
+	}
+	.btn-4{
+		.btn;
+		background: #002144;
+		color: white;
+		&:hover{
+			background: lighten(#002144, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(#002144, 10%);
+		}
+		&:-moz-window-inactive{
+			background: lighten(#002144, 20%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background: lighten(#002144, 20%);
+		}
+	}
+	/*
+		.btn-4{
+		.btn;
+		background-color: @greenLight;
+		border: 1px solid @greenDark;
+		color:white;
+		text-shadow:0 none;
+		font-size:0.95em;
+		font-weight: 400;
+		&:hover{
+			background: lighten(@greenLight, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(@greenLight, 10%);
+		}
+		&:-moz-window-inactive{
+			background:desaturate(@greenLight, 35%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:desaturate(@greenLight, 35%);
+		}
+	}
+	//Green
+	//DarkGray
+	.btn-5{
+		.btn;
+		background-color: @grayLight;
+		border: 1px solid  @gray;
+		color:white;
+		text-shadow:0 none;
+		font-size:0.95em;
+		font-weight: 400;
+		&:hover{
+			background: lighten(@grayLight, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(@grayLight, 10%);
+		}
+		&:-moz-window-inactive{
+			background:desaturate(@grayLight, 35%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:desaturate(@grayLight, 35%);
+		}
+	}
+	*/
+	//Red
+	.btn-6{
+		.btn;
+		background-color: @red;
+		border: 1px solid @redDark;
+		color:white;
+		font-size:0.95em;
+		&:hover{
+			background: lighten(@red, 10%);
+		}
+		&:active,
+		&.active {
+			background: darken(@red, 10%);
+		}
+		&:-moz-window-inactive{
+			background:desaturate(@red, 35%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:desaturate(@red, 35%);
+		}
+	}
+	/*
+	//blue Lighter
+	.btn-7{
+		.btn;
+		background-color: @blueLighter;
+		color:@blue;
+		font-size:0.95em;
+		border:none 0;
+		&:hover,
+		&:active,
+		&.active {
+			background: lighten(@blueLighter, 10%);
+		}
+		&:-moz-window-inactive{
+			background:desaturate(@blueLighter, 35%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:desaturate(@blueLighter, 35%);
+		}
+	}
+	//red Lighter
+	.btn-8{
+		.btn;
+		background-color: #FFEBEB;
+		color:#EE3F35;
+		font-size:0.95em;
+		border:none 0;
+		&:hover,
+		&:active,
+		&.active {
+			background: lighten(#FFEBEB, 10%);
+		}
+		&:-moz-window-inactive{
+			background:desaturate(#FFEBEB, 35%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:desaturate(#FFEBEB, 35%);
+		}
+	}
+	//white Lighter
+	.btn-9{
+		.btn;
+		background-color:white;
+		border: 1px solid lighten(black, 35%);
+		color: black;
+		font-size:0.95em;
+		&:hover,
+		&:active,
+		&.active {
+			border: 1px solid black;
+		}
+		&:-moz-window-inactive{
+			border: 1px solid lighten(black, 65%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			border: 1px solid lighten(black, 65%);
+			color: lighten(black, 65%);
+		}
+	}
+	//black Lighter
+	.btn-10{
+		.btn;
+		background-color: black;
+		color:white;
+		font-size:0.95em;
+		border:none 0;
+		&:hover,
+		&:active,
+		&.active {
+			background: lighten(black, 35%);
+		}
+		&:-moz-window-inactive{
+			background:lighten(black, 75%);
+		}
+		&:disabled,
+		&.disabled,
+		&.disabled:hover,
+		&.disabled:active{
+			background:lighten(black, 75%);
+		}
+	}
+	*/
+	.btn-icon{
+		padding-right: 3em;
+		position: relative;
+		text-align: left;
+		[class*="icon-"]{
+			font-size: 1.3em;
+			position: absolute;
+			right: 0.556em;
+			.transition(all 0 ease-in);
+		}
+		&:hover [class*="icon-"]{
+			.scale(1.1);
+			.transition(all 0 ease-out);
+		}
+		&:disabled [class*="icon-"],
+		&.disabled [class*="icon-"],
+		&.disabled:hover [class*="icon-"],
+		&.disabled:active [class*="icon-"] {
+			.scale(1);
+		}
+	}
+	.btn-icon-left{
+		//.btn-icon;
+		padding-left: 3em;
+		position: relative;
+		text-align: left;
+		[class*="icon-"]{
+			font-size: 1.3em;
+			position: absolute;
+			left: 0.556em;
+			.transition(all 0 ease-in);
+		}
+		&:hover [class*="icon-"]{
+			.scale(1.1);
+			.transition(all 0 ease-out);
+		}
+		&:disabled [class*="icon-"],
+		&.disabled [class*="icon-"],
+		&.disabled:hover [class*="icon-"],
+		&.disabled:active [class*="icon-"] {
+			.scale(1);
+		}
+	}
+	html.touch .btn-icon{
+		[class*="icon-"]{
+			right: 0.226em;
+			font-size: 1.8em;
+			top: 3px;
+		}
+	}

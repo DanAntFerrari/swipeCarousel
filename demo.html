@@ -61,42 +61,69 @@
 				<h1>swipeCarousel</h1>
 				<h2>Super simple carousel</h2>
 			</hgroup>
-			<p>Slider started for sgm marcopolo/unieuro mobile project for touch drag and swipe.</p>
-			<p>Option for outoslide, arrow, indix point item for row;</p>
-			<p>New version for arlom, added callback e new option form</p>
+			<p>Slider with touch swipe and drag.</p>
+			<p>Option for:</p>
+			<ul class="styled">
+				<li>autoslide (state/interval/loop)</li>
+				<li>arrow</li>
+				<li>index indicators dots/spot</li>
+				<li>item for row</li>
+				<li>callback</li>
+				<li>fade option</li>
+				<li>drag on off (TODO:remove hammer library request)</li>
+				<li>drag on off</li>
+			</ul>
 			<div id="carousel_demo" class="carousel">
 				<ul>
 					<li>
 						<a href="//google.com">
 							<picture>
 								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide1"></source>
-								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide1"></source>
+								<source media="(min-width: 960px)" srcset="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize1n1"></source>
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/760x190/4D9DC2/FFFFFF.gif&text=slidesize2n1"></source>
+								<source media="(min-width: 500px)" srcset="//dummyimage.com/680x170/4D9DC2/FFFFFF.gif&text=slidesize3n1"></source>
+								<source media="(min-width: 321px)" srcset="//dummyimage.com/505x126/4D9DC2/FFFFFF.gif&text=slidesize4n1"></source>
+								<source srcset="//dummyimage.com/300x120/4D9DC2/FFFFFF.gif&text=slidesize"></source>
 								<!--[if IE 9]></video><![endif]-->
-								<img alt="Slide1" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide1">
-							</picture>
+								<!--[if (gt IE 9)|!(IE)]><!--><img alt="Section header"><!--[endif]-->
+								<!--[if IE 8]>
+								<img alt="Section header" src="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize">
+								<![endif]-->
+							</picture>﻿
 						</a>
 					</li>
 					<li>
 						<a href="//google.com">
 							<picture>
 								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide2"></source>
-								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide2"></source>
+								<source media="(min-width: 960px)" srcset="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize1n2"></source>
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/760x190/4D9DC2/FFFFFF.gif&text=slidesize2n2"></source>
+								<source media="(min-width: 500px)" srcset="//dummyimage.com/680x170/4D9DC2/FFFFFF.gif&text=slidesize3n2"></source>
+								<source media="(min-width: 321px)" srcset="//dummyimage.com/505x126/4D9DC2/FFFFFF.gif&text=slidesize4n2"></source>
+								<source srcset="//dummyimage.com/300x120/4D9DC2/FFFFFF.gif&text=slidesize"></source>
 								<!--[if IE 9]></video><![endif]-->
-								<img alt="Slide2" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide2">
-							</picture>
+								<!--[if (gt IE 9)|!(IE)]><!--><img alt="Section header"><!--[endif]-->
+								<!--[if IE 8]>
+								<img alt="Section header" src="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize">
+								<![endif]-->
+							</picture>﻿
 						</a>
 					</li>
 					<li>
 						<a href="//google.com">
 							<picture>
 								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source media="(min-width: 728px)" srcset="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide3"></source>
-								<source srcset="//dummyimage.com/720x280/FBE3BD/002043.gif&text=Slide3"></source>
+								<source media="(min-width: 960px)" srcset="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize1n3"></source>
+								<source media="(min-width: 728px)" srcset="//dummyimage.com/760x190/4D9DC2/FFFFFF.gif&text=slidesize2n3"></source>
+								<source media="(min-width: 500px)" srcset="//dummyimage.com/680x170/4D9DC2/FFFFFF.gif&text=slidesize3n3"></source>
+								<source media="(min-width: 321px)" srcset="//dummyimage.com/505x126/4D9DC2/FFFFFF.gif&text=slidesize4n3"></source>
+								<source srcset="//dummyimage.com/300x120/4D9DC2/FFFFFF.gif&text=slidesize"></source>
 								<!--[if IE 9]></video><![endif]-->
-								<img alt="Slide3" src="//dummyimage.com/1120x280/FBE3BD/002043.gif&text=Slide3">
-							</picture>
+								<!--[if (gt IE 9)|!(IE)]><!--><img alt="Section header"><!--[endif]-->
+								<!--[if IE 8]>
+								<img alt="Section header" src="//dummyimage.com/930x233/4D9DC2/FFFFFF.gif&text=slidesize">
+								<![endif]-->
+							</picture>﻿
 						</a>
 					</li>
 				</ul>
@@ -111,27 +138,22 @@ var options = {
 			,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
 			,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
 		}
-		,nav	: {
-			state		: false		// Default: false	-->  Set true for turn it on
+		,set	: {
+			forRow    	: 1 		// Default: 1 		-->	 Set number of item for row
 			,arrow		: false		// Default: false	-->  Set true for turn it on
 			,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
-			,keyArrow	: true		// Default: false	-->  Set true for turn it on
-			,spot		: false		// Default: false	-->  Set true for turn it on
-			,drag		: false		// Default: false	-->  Set true for turn it on
-		}
-		,item	:{
-			forRow    	: 1 		// Default: 1 		--> Set number of item for row
+			,key		: false		// Default: false	-->  Set CSS selector for turn it on
+			,spot		: true		// Default: false	-->  Set true for turn it on
+			,drag		: true		// Default: true	-->  Set false for turn it off
+			,mode    	: "slide" 	// Default: "slide"	-->	 Set mode "fade" or "slide"
+			,timeTo    	: 800	 	// Default: 800 	-->	 Set time value (milliseconds)
 		}
 		,callbacks :{
 			onInit 			: null	// Callback function: On slider initialize
-			//,onSlide         : null	// Callback function: As the slide starts to animate
 			,beforeSet      : null	// Callback function: Before swipeCarousel is set or reset
 			,afterSet      	: null	// Callback function: After swipeCarousel is set or reset
 			,endSlideshow	: null	// Callback function: After swipeCarousel is set or reset
-			//,afterSlide      : null	// Callback function: As the slide completes the animation
-			//,onSlideEnd      : null  	// Callback function: Once the slider reaches the last slide
 		}
-	};
 
 =================================== */
 </pre>

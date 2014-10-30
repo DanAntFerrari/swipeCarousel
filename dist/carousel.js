@@ -28,16 +28,15 @@
 				,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
 				,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
 			}
-			,nav	: {
-				state		: false		// Default: false	-->  Set true for turn it on
+			,set	: {
+				forRow    	: 1 		// Default: 1 		-->	 Set number of item for row
 				,arrow		: false		// Default: false	-->  Set true for turn it on
 				,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
-				,keyArrow	: true		// Default: false	-->  Set true for turn it on
-				,spot		: false		// Default: false	-->  Set true for turn it on
-				,drag		: false		// Default: false	-->  Set true for turn it on
-			}
-			,item	:{
-				forRow    	: 1 		// Default: 1 		--> Set number of item for row
+				,key		: false		// Default: false	-->  Set CSS selector for turn it on
+				,spot		: true		// Default: false	-->  Set true for turn it on
+				,drag		: true		// Default: true	-->  Set false for turn it off
+				,mode    	: "slide" 	// Default: "slide"	-->	 Set mode "fade" or "slide"
+				,timeTo    	: 800	 	// Default: 800 	-->	 Set time value (milliseconds)
 			}
 			,callbacks :{
 				onInit 			: null	// Callback function: On slider initialize
@@ -77,21 +76,22 @@
 		var isIE = document.all && document.compatMode;
 
 		var slideTimer;
+		var _moving= false;
 
 		// IF slide for row length > 1
-		if (options.item.forRow >= 2){
-			pane_count = pane_count-(options.item.forRow-1);
-			//current_pane = options.item.forRow-1;
+		if (options.set.forRow >= 2){
+			pane_count = pane_count-(options.set.forRow-1);
+			//current_pane = options.set.forRow-1;
 		}
 
 		// FOR ARROW POSITION
-		if(typeof options.nav.arrowTo === 'string'){
-			options.nav.arrowTo = $(options.nav.arrowTo);
+		if(typeof options.set.arrowTo === 'string'){
+			options.set.arrowTo = $(options.set.arrowTo);
 		} else {
-			options.nav.arrowTo = element;
+			options.set.arrowTo = element;
 		}
 
-		console.log('slideShow: '+elementName+' n° slide: '+pane_count+' - options.slideshow.timerInt: '+options.slideshow.timerInt+' - options.slideshow.state: '+options.slideshow.state+' - options.nav.state: '+options.nav.state)
+		//console.log('slideShow: '+elementName+' n° slide: '+pane_count+' - options.slideshow.timerInt: '+options.slideshow.timerInt+' - options.slideshow.state: '+options.slideshow.state+' - options.set.state: '+options.set.state)
 
 		//initialization
 
@@ -100,9 +100,7 @@
 			// IF slide length > 0
 			if (pane_count > 1){
 				// INIT NAVIGATION
-				if (options.nav.state){
-					self.navigation();
-				}
+				self.navigation();
 				// INIT SLIDESHOW
 				if (options.slideshow.state){
 					self.sliderstartTimer();
@@ -112,6 +110,7 @@
 			$(window).on("resize orientationchange", function() {
 				clearInterval(slideTimer);
 				self.setPaneDimensions(false);
+
 				//updateOffset();
 			});
 			////IF open nav SGM
@@ -127,42 +126,46 @@
 			if (options.callbacks.beforeSet!=null && typeof(options.callbacks.beforeSet ) == 'function' ) options.callbacks.afterSet(self);
 
 			container.add('.carousel .nav, .carousel .indicators').addClass('invisible');
-			element.addClass('loading invisible');
-			//$('html').addClass('js-loading invisible');
+			element.addClass('js-loading');
 			//var panesHeight = (panes.height())+'px';
-			pane_width = (element.innerWidth())/options.item.forRow;
-
-			panes.each(function() {
-				$(this).width(pane_width);
-			});
+			pane_width = (element.innerWidth())/options.set.forRow;
+			panes.width(pane_width);
 			var container_width = pane_width*(pane_count);
-			if (options.item.forRow >= 2){
-				//container_width = Math.round(pane_width*(pane_count+(options.item.forRow-1)));
-				container_width = parseInt(pane_width*(pane_count+(options.item.forRow-1)))+1;
-				//container_width = pane_width*(pane_count+(options.item.forRow-1));
-				//console.log(pane_width);
-				//console.log(options.item.forRow);
-				//console.log(container_width);
+			if (options.set.forRow >= 2 && options.set.mode == "slide"){
+				//container_width = Math.round(pane_width*(pane_count+(options.set.forRow-1)));
+				container_width = (pane_width*(pane_count+(options.set.forRow-1)))+1;
 				if(element.width()>=container_width){
 					container_width=element.width;
 				}
+			} else if (options.set.mode == "fade"){
+				container_width=element.width;
+				panes.hide();
 			}
-			if(options.nav.spot){
+
+			if(options.set.spot){
+				// center pointers in page:
+				var leftMargin = element.find('.indicators').outerWidth() / 2 ;
+				element.find('.indicators').css('margin-left',-leftMargin+'px');
+			}
+			if(options.set.spot){
 				// center pointers in page:
 				var leftMargin = element.find('.indicators').outerWidth() / 2 ;
 				element.find('.indicators').css('margin-left',-leftMargin+'px');
 			}
 
-			container.animate(
-				{
+			container.animate({
 					width:container_width
-				}, 50, function() {
+				}, 0, function() {
 					// math complete.
-					//$('html').removeClass('js-loading invisible');
-					element.removeClass('loading invisible');
+					element.removeClass('js-loading');
 					container.add('.carousel .nav, .carousel .indicators').delay(100).removeClass('invisible');
 
 					if (onInitI){
+						if (options.set.forRow >= 2){
+							panes.slice(0,(0+options.set.forRow)).fadeIn(options.set.timeTo);
+						} else{
+							panes.eq(0).fadeIn(options.set.timeTo);
+						}
 						onInitI=false;
 						// onInit callback
 						if (options.callbacks.onInit!=null && typeof(options.callbacks.onInit ) == 'function' ) options.callbacks.onInit(self);
@@ -179,19 +182,17 @@
 
 
 		this.navigation=function() {
-			options.nav.arrowTo.addClass('withnav');
+			if(options.set.arrow || options.set.key || options.set.spot)options.set.arrowTo.addClass('withnav');
 
-			if(options.nav.arrow){
+			if(options.set.arrow){
 
-				var left = "<a class='nav prev hidden' rel='prev' href='javascript:void(0);'> <span class='icon arrow left' aria-hidden='true'></span></a>";
-				var right = "<a class='nav next' rel='next' href='javascript:void(0);'><span class='icon arrow right' aria-hidden='true'></span></a>";
-				//console.clear()
-				//console.log(options.nav.arrowTo)
+				var left = "<a class='nav prev hidden' rel='prev' href='javascript:void(0);'> <span aria-hidden='true' class='icon-arrow-left'></span></a>";
+				var right = "<a class='nav next' rel='next' href='javascript:void(0);'><span aria-hidden='true' class='icon-arrow-right'></span></a>";
 
-				$(right).appendTo(options.nav.arrowTo);
-				$(left).prependTo(options.nav.arrowTo);
+				$(right).appendTo(options.set.arrowTo);
+				$(left).prependTo(options.set.arrowTo);
 				//CLICK ON ARROW
-				options.nav.arrowTo.on('click','.nav',function(e,simulated){
+				options.set.arrowTo.on('click','.nav',function(e,simulated){
 					if(!simulated){
 						//console.log('click on nav SO: stop slideshow')
 						clearInterval(slideTimer);	// A real click occured. Cancel the auto advance animation.
@@ -204,23 +205,23 @@
 				});
 
 			}
-			if(options.nav.keyArrow){
-
-				element.on('hover',function(e){
-					element.bind().keyup( function (e) {
-						//console.log('eccoci');
-						if ( e.keyCode == 39 ) { // Right arrow
-							self.next();
-							return false;
-						} else if ( e.keyCode == 37 ) { // Left arrow
-							self.prev();
-							return false;
-						}; // e.keyCode
-					}); // window.keyup
-				});
+			if(options.set.key){
+				//element.on(
+				//mouseEnter: function(e){
+				//	console.log('eccoci');
+				//	element.bind().keyup( function (e) {
+				//		if ( e.keyCode == 39 ) { // Right arrow
+				//			self.next();
+				//			return false;
+				//		} else if ( e.keyCode == 37 ) { // Left arrow
+				//			self.prev();
+				//			return false;
+				//		}; // e.keyCode
+				//	}); // window.keyup
+				//});
 			}
 
-			if(options.nav.spot){
+			if(options.set.spot){
 
 				var indicators = "<ul class='indicators'>";
 
@@ -246,7 +247,10 @@
 					}
 					var item = $(this).data('index');
 					//console.log('current_pane: '+current_pane+' index: '+item);
-					self.goToIndex(item);
+					console.log(_moving)
+					if (_moving==false){
+						self.goToIndex(item);
+					}
 				});
 
 			}
@@ -286,13 +290,38 @@
 		}; // self.sliderstartTimer();
 
 		//show pane by index
-		this.showPane=function(index) {
+		this.showPane=function(index,animate) {
+			//console.log('showPane',_moving)
 			// between the bounds
-			index = Math.max(0, Math.min(index, pane_count-1));
-			current_pane = index;
-			var offset = -((100/pane_count)*current_pane);
-			setContainerOffset(offset, true);
-			element.find('.indicators li:eq('+(current_pane)+')').addClass('active');
+			index = Math.max(0, Math.min(index,pane_count-1));
+			if(options.set.mode == "fade") {
+				//console.log(current_pane,index);
+				var old_current_pane = current_pane;
+				if (options.set.forRow >= 2){
+					panes.stop();
+					panes.slice(old_current_pane,(old_current_pane+options.set.forRow)).hide();
+					element.find('.indicators li:eq('+(index)+')').addClass('active');
+					panes.slice(index,(index+options.set.forRow)).fadeIn(options.set.timeTo,function(){
+						current_pane = index;
+						_moving = false;
+					});
+				} else{
+					panes.stop();
+					panes.hide();
+					element.find('.indicators li:eq('+(index)+')').addClass('active');
+					panes.eq(index).fadeIn(options.set.timeTo,function(){
+						current_pane = index;
+						_moving = false;
+					});
+				}
+			}
+			else {
+				// mode slide
+				current_pane = index;
+				var offset = -((100/pane_count)*current_pane);
+				setContainerOffset(offset, true);
+				element.find('.indicators li:eq('+(current_pane)+')').addClass('active');
+			}
 		};	// self.showPane();
 
 
@@ -302,19 +331,20 @@
 			if(animate) {
 				container.addClass("animate");
 			}
-			if(Modernizr.csstransforms3d) {
+			if (Modernizr.csstransforms3d) {
 				//container.css("transform", "translate3d("+ percent +"%,0,0) scale3d(1,1,1)");
 				var px = ((pane_width*pane_count) / 100) * percent;
 				container.css("transform", 'translate3d('+px+'px,0,0) scale3d(1,1,1)');
 			}
-			else if(Modernizr.csstransforms) {
+			else if (Modernizr.csstransforms) {
 				//container.css("transform", "translate("+ percent +"%,0)");
 				var px = ((pane_width*pane_count) / 100) * percent;
 				container.css("transform", "translate("+px+"px,0)");
 			}
 			else {
 				var px = ((pane_width*pane_count) / 100) * percent;
-				TweenMax.to(container, 0.3, {css:{marginLeft:px}, ease:Expo.easeOut});
+				if (TweenMax)TweenMax.to(container, 0.3, {css:{marginLeft:px}, ease:Expo.easeOut});
+				else container.animate({marginLeft:px},600);
 			}
 		}
 
@@ -337,34 +367,34 @@
 		};	// self.prev();
 
 		this.updatenav=function(index,direction) {
-			options.nav.arrowTo.find('.nav').removeClass('hidden');
+			options.set.arrowTo.find('.nav').removeClass('hidden');
 			element.find('.indicators li').removeClass('active');
 
 			switch(direction) {
 				case 'prev':
-					console.log('slideShow: move to / prev - current_pane: '+current_pane+' - pane_count: '+pane_count);
+					//console.log('slideShow: move to / prev - current_pane: '+current_pane+' - pane_count: '+pane_count);
 					if(current_pane<=1){
-						options.nav.arrowTo.find('.prev').addClass('hidden');
+						options.set.arrowTo.find('.prev').addClass('hidden');
 					}
 					//element.find('.indicators li:eq('+(current_pane+1)+')').addClass('active');
-					break;
-					case 'next':
-					console.log('slideShow:  move to / prev - next: '+current_pane+' - pane_count: '+pane_count);
+				break;
+				case 'next':
+					//console.log(slideShow:  move to / prev - next: '+current_pane+' - pane_count: '+pane_count);
 					if(current_pane>=(pane_count-2)){
-						options.nav.arrowTo.find('.next').addClass('hidden');
+						options.set.arrowTo.find('.next').addClass('hidden');
 					}
 
-					break;
-					default:
-					console.log('slideShow:  move to / RIC current_pane: '+current_pane+' index: '+direction+' pane_count: '+pane_count);
+				break;
+				default:
+					//console.log(slideShow:  move to / RIC current_pane: '+current_pane+' index: '+direction+' pane_count: '+pane_count);
 					if(direction==0){
-						options.nav.arrowTo.find('.prev').addClass('hidden');
+						options.set.arrowTo.find('.prev').addClass('hidden');
 					} else if (direction==(pane_count-1)){
-						options.nav.arrowTo.find('.next').addClass('hidden');
+						options.set.arrowTo.find('.next').addClass('hidden');
 
 					}
-					break;
-				}
+				break;
+			}
 		};	// self.updatenav();
 
 		function handleHammer(ev,simulated) {
@@ -378,22 +408,22 @@
 			switch(ev.type) {
 				case 'dragright':
 				case 'dragleft':
-
 					ev.gesture.preventDefault();
-					// stick to the finger
-					var pane_offset = -(100/pane_count)*current_pane;
-					var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
 
-					// slow down at the first and last pane
-					if((current_pane == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
-						(current_pane == pane_count-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
-						drag_offset *= .4;
+					if(options.set.mode != "fade") {
+						// stick to the finger
+						var pane_offset = -(100/pane_count)*current_pane;
+						var drag_offset = ((100/pane_width)*ev.gesture.deltaX) / pane_count;
+
+						// slow down at the first and last pane
+						if((current_pane == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
+							(current_pane == pane_count-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
+							drag_offset *= .4;
+						}
+
+						setContainerOffset(drag_offset + pane_offset);
+
 					}
-
-
-					// VERSIONE ORIGINALE DANIELE
-					 setContainerOffset(drag_offset + pane_offset);
-
 
 				break;
 
@@ -428,7 +458,7 @@
 		}
 		// IF slide length > 0
 		this.init();
-		if (pane_count > 1 && options.nav.drag && Hammer){
+		if (pane_count > 1 && options.set.drag && Hammer){
 			// no swype on windows mobile
 			if(!isIE) {
 			//if(!isIE && Modernizr.touch) {
@@ -456,3 +486,4 @@
 
 
 })(jQuery,Modernizr, document, window);
+

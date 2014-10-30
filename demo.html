@@ -61,8 +61,9 @@
 				<h1>swipeCarousel</h1>
 				<h2>Super simple carousel</h2>
 			</hgroup>
-			<p>Slider created for sgm marcopolo/unieuro mobile project for touch drag and swipe.</p>
-			<p>Option for outoslide, arrow, indix point item for row;
+			<p>Slider started for sgm marcopolo/unieuro mobile project for touch drag and swipe.</p>
+			<p>Option for outoslide, arrow, indix point item for row;</p>
+			<p>New version for arlom, added callback e new option form</p>
 			<div id="carousel_demo" class="carousel">
 				<ul>
 					<li>
@@ -105,25 +106,30 @@
  * Carousel option if slide length > 0
 
 var options = {
-		slideshow	: {
-			// Default: false 	--> Set true for turn it on
-			state 		: false,
-			// Default: 5000	--> Set time value (milliseconds)
-			timerInt	: 5000,
-			// Default: 1 		--> Set number of times (0 for infinite)
-			stopLoop	: 1
-		},
-		nav	: {
-			// Default: true	-->  Set true for turn it off
-			state		: true,
-			// Default: true	-->  Set true for turn it off
-			arrow		: true,
-			// Default: true	-->  Set true for turn it off
-			spot		: true
+	slideshow	: {
+			state 		: false 	// Default: false 	--> Set true for turn it on
+			,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
+			,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
 		}
-		item	:{
-			// Default: 1 		--> Set number of item for row
-			forRow    	: 1
+		,nav	: {
+			state		: false		// Default: false	-->  Set true for turn it on
+			,arrow		: false		// Default: false	-->  Set true for turn it on
+			,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
+			,keyArrow	: true		// Default: false	-->  Set true for turn it on
+			,spot		: false		// Default: false	-->  Set true for turn it on
+			,drag		: false		// Default: false	-->  Set true for turn it on
+		}
+		,item	:{
+			forRow    	: 1 		// Default: 1 		--> Set number of item for row
+		}
+		,callbacks :{
+			onInit 			: null	// Callback function: On slider initialize
+			//,onSlide         : null	// Callback function: As the slide starts to animate
+			,beforeSet      : null	// Callback function: Before swipeCarousel is set or reset
+			,afterSet      	: null	// Callback function: After swipeCarousel is set or reset
+			,endSlideshow	: null	// Callback function: After swipeCarousel is set or reset
+			//,afterSlide      : null	// Callback function: As the slide completes the animation
+			//,onSlideEnd      : null  	// Callback function: Once the slider reaches the last slide
 		}
 	};
 
@@ -154,9 +160,6 @@ var options = {
 
 		<script type="text/javascript">
 		$(document).ready(function (){
-				var optionsA = {nav:{arrow:false}};
-				var optionsB = {nav:{state:true, arrow:true},item:{forRow:2}};
-				var optionsC = {slideshow:{state:true}};
 
 				$("#carousel_demo").swipeCarousel();
 				$('html').removeClass('no-document-ready').addClass('document-ready');

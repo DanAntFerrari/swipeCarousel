@@ -12,38 +12,42 @@
 
 	// Super simple carousel
 	// Animation between panes happens with css transitions
-	// ATTENTION! = This Script need jquery, modernizr and asset libraries
+	// ATTENTION! = This Script requires jQuery, Modernizr asset libraries
 	// Asset URI: http://jquery.com/ - http://modernizr.com/ - http://eightmedia.github.io/hammer.js/
 
-	;(function($,doc,win) {
+	;(function($,mzr,doc,win) {
 
 	"use strict"; //catches some common coding problems -http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 
-	$.swipeCarosel=function(element,options){
-
+	$.swipeCarousel=function(element,options){
 		// Carousel option if slide length > 0
 		var defaults = {
 
 			slideshow	: {
-					state 		: false, 	// Default: false 	--> Set true for turn it on
-					timerInt	: 5000,		// Default: 5000	--> Set time value (milliseconds)
-					stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
-				}
+				state 		: false 	// Default: false 	--> Set true for turn it on
+				,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
+				,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
+			}
 			,nav	: {
-					state		: true,		// Default: true	-->  Set true for turn it off
-					arrow		: true,		// Default: true	-->  Set true for turn it off
-					keyArrow	: false,	// Default: false	-->  Set true for turn it on
-					spot		: true		// Default: true	-->  Set true for turn it off
-				}
+				state		: false		// Default: false	-->  Set true for turn it on
+				,arrow		: false		// Default: false	-->  Set true for turn it on
+				,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
+				,keyArrow	: true		// Default: false	-->  Set true for turn it on
+				,spot		: false		// Default: false	-->  Set true for turn it on
+				,drag		: false		// Default: false	-->  Set true for turn it on
+			}
 			,item	:{
-					forRow    	: 1 		// Default: 1 		--> Set number of item for row
-				}
-			/*,callbacks :{
-				onInit 			: null, 	// Callback function: On slider initialize
-		        onSlide         : null, 	// Callback function: As the slide starts to animate
-		        afterSlide      : null, 	// Callback function: As the slide completes the animation
-		        onSlideEnd      : null  	// Callback function: Once the slider reaches the last slide
-			}*/
+				forRow    	: 1 		// Default: 1 		--> Set number of item for row
+			}
+			,callbacks :{
+				onInit 			: null	// Callback function: On slider initialize
+				//,onSlide         : null	// Callback function: As the slide starts to animate
+				,beforeSet      : null	// Callback function: Before swipeCarousel is set or reset
+				,afterSet      	: null	// Callback function: After swipeCarousel is set or reset
+				,endSlideshow	: null	// Callback function: After swipeCarousel is set or reset
+				//,afterSlide      : null	// Callback function: As the slide completes the animation
+				//,onSlideEnd      : null  	// Callback function: Once the slider reaches the last slide
+			}
 		};
 
 		//	http://css-plus.com/2010/05/adding-user-options-to-your-jquery-plugin/
@@ -52,15 +56,15 @@
 
 		// To avoid scope issues, use 'self' instead of 'this'
 		// To reference this class from internal events and functions.
-        var self = this;
+		var self = this;
 
-        // Access to jQuery and DOM versions of element
-       	var elementName = self.element;
-        self.$element = $(element);
-        var element = $(element);
+		// Access to jQuery and DOM versions of element
+		self.$element = $(element);
+		var elementName = $(element).prop('id');
+		var element = $(element);
 
-        // Add a reverse reference to the DOM object
-        self.$element.data("swipeCarousel", self);
+		// Add a reverse reference to the DOM object
+		self.$element.data("swipeCarousel", self);
 
 		var container = $(">ul", element);
 		var panes = $(">ul>li", element);
@@ -80,12 +84,19 @@
 			//current_pane = options.item.forRow-1;
 		}
 
+		// FOR ARROW POSITION
+		if(typeof options.nav.arrowTo === 'string'){
+			options.nav.arrowTo = $(options.nav.arrowTo);
+		} else {
+			options.nav.arrowTo = element;
+		}
+
+		console.log('slideShow: '+elementName+' n° slide: '+pane_count+' - options.slideshow.timerInt: '+options.slideshow.timerInt+' - options.slideshow.state: '+options.slideshow.state+' - options.nav.state: '+options.nav.state)
 
 		//initialization
 
 		this.init=function() {
-
-			self.setPaneDimensions();
+			self.setPaneDimensions(true);
 			// IF slide length > 0
 			if (pane_count > 1){
 				// INIT NAVIGATION
@@ -97,61 +108,90 @@
 					self.sliderstartTimer();
 				}
 			}
-
-
 			//CHECK TAB ACTION
 			$(window).on("resize orientationchange", function() {
 				clearInterval(slideTimer);
-				self.setPaneDimensions();
+				self.setPaneDimensions(false);
 				//updateOffset();
 			});
-			//IF open nav SGM
-			$('.menu-trigger').on("click", function() {
-				clearInterval(slideTimer);
-			});
-
+			////IF open nav SGM
+			//$('.menu-trigger').on("click", function() {
+			//	clearInterval(slideTimer);
+			//});
 		};
 
 
 		//set the pane dimensions and scale the container
+		this.setPaneDimensions=function(onInitI) {
+			// beforeSet callback
+			if (options.callbacks.beforeSet!=null && typeof(options.callbacks.beforeSet ) == 'function' ) options.callbacks.afterSet(self);
 
-		this.setPaneDimensions=function() {
 			container.add('.carousel .nav, .carousel .indicators').addClass('invisible');
-			element.addClass('loading');
+			element.addClass('loading invisible');
+			//$('html').addClass('js-loading invisible');
 			//var panesHeight = (panes.height())+'px';
-		 	pane_width = (element.innerWidth())/options.item.forRow;
-		 	panes.each(function() {
-		 		$(this).width(pane_width);
-		 	});
+			pane_width = (element.innerWidth())/options.item.forRow;
+
+			panes.each(function() {
+				$(this).width(pane_width);
+			});
 			var container_width = pane_width*(pane_count);
-		 	if (options.item.forRow >= 2){
-				container_width = pane_width*(pane_count+(options.item.forRow-1));
-		 	}
-	 		container.animate(
-	 			{
-	 				width:container_width
-	 			}, 50, function() {
+			if (options.item.forRow >= 2){
+				//container_width = Math.round(pane_width*(pane_count+(options.item.forRow-1)));
+				container_width = parseInt(pane_width*(pane_count+(options.item.forRow-1)))+1;
+				//container_width = pane_width*(pane_count+(options.item.forRow-1));
+				//console.log(pane_width);
+				//console.log(options.item.forRow);
+				//console.log(container_width);
+				if(element.width()>=container_width){
+					container_width=element.width;
+				}
+			}
+			if(options.nav.spot){
+				// center pointers in page:
+				var leftMargin = element.find('.indicators').outerWidth() / 2 ;
+				element.find('.indicators').css('margin-left',-leftMargin+'px');
+			}
+
+			container.animate(
+				{
+					width:container_width
+				}, 50, function() {
 					// math complete.
-					element.removeClass('loading');
+					//$('html').removeClass('js-loading invisible');
+					element.removeClass('loading invisible');
 					container.add('.carousel .nav, .carousel .indicators').delay(100).removeClass('invisible');
+
+					if (onInitI){
+						onInitI=false;
+						// onInit callback
+						if (options.callbacks.onInit!=null && typeof(options.callbacks.onInit ) == 'function' ) options.callbacks.onInit(self);
+
+					} else {
+						self.goToIndex(current_pane);
+					}
+					// afterSet callback
+					if (options.callbacks.afterSet!=null && typeof(options.callbacks.afterSet ) == 'function' ) options.callbacks.afterSet(self);
 				}
 			);
+
 		};	// self.setPaneDimensions();
 
 
 		this.navigation=function() {
-		 	element.addClass('withnav');
+			options.nav.arrowTo.addClass('withnav');
 
-		 	if(options.nav.arrow){
+			if(options.nav.arrow){
 
-		 		var left = "<a class='nav prev hidden' rel='prev' href='javascript:void(0);'> <span class='icon-sgm-icon-arrowleft' aria-hidden='true'></span></a>";
-		 		var right = "<a class='nav next' rel='next' href='javascript:void(0);'><span class='icon-sgm-icon-arrowright' aria-hidden='true'></span></a>";
+				var left = "<a class='nav prev hidden' rel='prev' href='javascript:void(0);'> <span class='icon arrow left' aria-hidden='true'></span></a>";
+				var right = "<a class='nav next' rel='next' href='javascript:void(0);'><span class='icon arrow right' aria-hidden='true'></span></a>";
+				//console.clear()
+				//console.log(options.nav.arrowTo)
 
-		 		$(left).prependTo(element);
-		 		$(right).appendTo(element);
-
+				$(right).appendTo(options.nav.arrowTo);
+				$(left).prependTo(options.nav.arrowTo);
 				//CLICK ON ARROW
-				element.on('click','.nav',function(e,simulated){
+				options.nav.arrowTo.on('click','.nav',function(e,simulated){
 					if(!simulated){
 						//console.log('click on nav SO: stop slideshow')
 						clearInterval(slideTimer);	// A real click occured. Cancel the auto advance animation.
@@ -166,16 +206,18 @@
 			}
 			if(options.nav.keyArrow){
 
-				element.bind().keyup( function (e) {
-					//console.log('eccoci');
-                    if ( e.keyCode == 39 ) { // Right arrow
-                    	self.next();
-                   		return false;
-                    } else if ( e.keyCode == 37 ) { // Left arrow
-                    	self.prev();
-                   		return false;
-                    }; // e.keyCode
-                }); // window.keyup
+				element.on('hover',function(e){
+					element.bind().keyup( function (e) {
+						//console.log('eccoci');
+						if ( e.keyCode == 39 ) { // Right arrow
+							self.next();
+							return false;
+						} else if ( e.keyCode == 37 ) { // Left arrow
+							self.prev();
+							return false;
+						}; // e.keyCode
+					}); // window.keyup
+				});
 			}
 
 			if(options.nav.spot){
@@ -192,9 +234,7 @@
 				indicators += "</ul>";
 				$(indicators).appendTo(element);
 
-				// center pointers in page:
-				var leftMargin = $('.indicators').outerWidth() / 2 ;
-				$('.indicators').css('margin-left',-leftMargin+'px');
+
 
 				element.find('.indicators li:eq(0)').addClass('active');
 
@@ -224,24 +264,24 @@
 
 			if (slideCounter < pane_count){
 				slideTimer = setInterval(function() {
-					//console.log('SLIDESHOW di: '+elementName+' n° slide: '+i_slide+' n° loop: '+i_loop+'/'+options.slideshow.stopLoop+' slideCounter: '+slideCounter+' pane_count: '+pane_count)
+					//console.log('slideShow di: '+elementName+' n° slide: '+i_slide+' n° loop: '+i_loop+'/'+options.slideshow.stopLoop+' slideCounter: '+slideCounter+' pane_count: '+pane_count)
 					if (slideCounter==pane_count) {
 						self.goToIndex(0);
 						if(options.slideshow.stopLoop==i_loop){
 							//console.log('fine')
 							clearInterval(slideTimer);
+							if (options.callbacks.endSlideshow!=null && typeof(options.callbacks.endSlideshow ) == 'function' ) options.callbacks.endSlideshow(self);
 						} else {
 							//console.log('ancora');
 							slideCounter = 1;
 						}
 						i_loop++
 					} else {
-						//console.log('avanti')
 						self.goToIndex(slideCounter);
 						slideCounter++;
 					}
 					i_slide++ // loop number index
-				}, 4000);
+				}, options.slideshow.timerInt);
 			}
 		}; // self.sliderstartTimer();
 
@@ -274,7 +314,7 @@
 			}
 			else {
 				var px = ((pane_width*pane_count) / 100) * percent;
-				container.css("left", px+"px");
+				TweenMax.to(container, 0.3, {css:{marginLeft:px}, ease:Expo.easeOut});
 			}
 		}
 
@@ -291,36 +331,36 @@
 		};	// self.prev();
 
 		this.goToIndex=function(index) {
-			//console.log('prev '+current_pane);
+			//console.log('slideShow: prev '+current_pane);
 			self.updatenav(current_pane,index);
 			return this.showPane(index, true);
 		};	// self.prev();
 
 		this.updatenav=function(index,direction) {
-			element.find('.nav').removeClass('hidden');
+			options.nav.arrowTo.find('.nav').removeClass('hidden');
 			element.find('.indicators li').removeClass('active');
 
 			switch(direction) {
 				case 'prev':
-					//console.log('prev - current_pane: '+current_pane+' - pane_count: '+pane_count);
+					console.log('slideShow: move to / prev - current_pane: '+current_pane+' - pane_count: '+pane_count);
 					if(current_pane<=1){
-						element.find('.prev').addClass('hidden');
+						options.nav.arrowTo.find('.prev').addClass('hidden');
 					}
 					//element.find('.indicators li:eq('+(current_pane+1)+')').addClass('active');
 					break;
 					case 'next':
-					//console.log('prev - next: '+current_pane+' - pane_count: '+pane_count);
+					console.log('slideShow:  move to / prev - next: '+current_pane+' - pane_count: '+pane_count);
 					if(current_pane>=(pane_count-2)){
-						element.find('.next').addClass('hidden');
+						options.nav.arrowTo.find('.next').addClass('hidden');
 					}
 
 					break;
 					default:
-					//console.log('RIC current_pane: '+current_pane+' index: '+direction+' pane_count: '+pane_count);
+					console.log('slideShow:  move to / RIC current_pane: '+current_pane+' index: '+direction+' pane_count: '+pane_count);
 					if(direction==0){
-						element.find('.prev').addClass('hidden');
+						options.nav.arrowTo.find('.prev').addClass('hidden');
 					} else if (direction==(pane_count-1)){
-						element.find('.next').addClass('hidden');
+						options.nav.arrowTo.find('.next').addClass('hidden');
 
 					}
 					break;
@@ -328,18 +368,12 @@
 		};	// self.updatenav();
 
 		function handleHammer(ev,simulated) {
-			//console.log(ev);
-
-
 
 			if(!simulated){
 				//console.log('action release dragleft dragright swipeleft swiperight SO: stop slideshow')
 				clearInterval(slideTimer);	// A real click occured. Cancel the auto advance animation.
 			}
 
-					/* -------- DZ TEST
-						$('h1.title:eq(0)').html(ev.type + ' - ' + parseInt(ev.gesture.angle) + ' - ' + parseInt(ev.gesture.deltaY) );
-					 -------- /DZ TEST  */
 
 			switch(ev.type) {
 				case 'dragright':
@@ -390,15 +424,14 @@
 				break;
 			}
 
-			 // onInit callback
-            //if ( self.options.callbacks.onInit && typeof( self.options.callbacks.onInit ) == 'function' ) self.options.callbacks.onInit( self );
 
 		}
 		// IF slide length > 0
 		this.init();
-		if (pane_count > 1){
+		if (pane_count > 1 && options.nav.drag && Hammer){
 			// no swype on windows mobile
 			if(!isIE) {
+			//if(!isIE && Modernizr.touch) {
 				element.hammer().on("release dragleft dragright swipeleft swiperight", handleHammer);
 			}
 		};
@@ -409,17 +442,17 @@
 	$.fn.swipeCarousel=function(options){
 
 		return this.each(function(){
-			(new $.swipeCarosel(this,options));
+			(new $.swipeCarousel(this,options));
 			// Our plugin so far if ( $.isFunction( settings.complete ) ){ settings.complete.call( this ); }
 		}); // this.each
 
-	}; // $.fn.swipeCarosel
+	}; // $.fn.swipeCarousel
 
-    // This function breaks the chain, but returns
-    // the wip.carousel if it has been attached to the object.
-    $.fn.getcasio_carousel = function(){
-        this.data("swipeCarousel");
-    };
+	// This function breaks the chain, but returns
+	// the wip.carousel if it has been attached to the object.
+	$.fn.getcasio_carousel = function(){
+		this.data("swipeCarousel");
+	};
 
 
-})(jQuery, document, window);
+})(jQuery,Modernizr, document, window);

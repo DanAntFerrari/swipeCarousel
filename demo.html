@@ -137,15 +137,18 @@ var options = {
 				,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
 				,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
 		}
-		,set	: {
-			forRow    	: 1 		// Default: 1 		-->	 Set number of item for row
-			,arrow		: false		// Default: false	-->  Set true for turn it on
-			,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
-			,key		: false		// Default: false	-->  Set CSS selector for turn it on
-			,spot		: false		// Default: false	-->  Set true for turn it on
-			,drag		: true		// Default: true	-->  Set false for turn it off
-			,mode    	: "slide" 	// Default: "slide"	-->	 Set mode "fade" or "slide"
-			,timeTo    	: 800	 	// Default: 800 	-->	 Set time value (milliseconds)
+		,set:{
+			forRow			:	1			// Default: 1 		-->	 Set number of item for row
+			,arrow			:	false		// Default: false	-->  Set true for turn it on
+			,arrowTo		:	false		// Default: false	-->  Set CSS selector for turn it on
+			,key			:	true		// Default: false	-->   Set true for turn it on
+			,spot			:	false		// Default: false	-->  Set true for turn it on
+			,spotTo			:	false		// Default: false	-->  Set CSS selector for turn it on
+			,drag			:	true		// Default: true	-->  Set false for turn it off
+			,gap			:	1			// Default: 1	-->  Set number of gap
+			,mode			:	"slide"		// Default: "slide"	-->	 Set mode "fade" or "slide"
+			,timeTo			:	800			// Default: 800 	-->	 Set time value (milliseconds)
+			,resize			:	false		// Default: false	-->  Set true for turn it on
 		}
 		,callbacks :{
 			onInit 			: null	// Callback function: On slider initialize

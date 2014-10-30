@@ -61,7 +61,7 @@
 				<h1>swipeCarousel</h1>
 				<h2>Super simple carousel</h2>
 			</hgroup>
-			<p>Slider with touch swipe and drag.</p>
+			<p>Slider with touch swipe and drag -.</p>
 			<p>Option for:</p>
 			<ul class="styled">
 				<li>autoslide (state/interval/loop)</li>
@@ -71,7 +71,6 @@
 				<li>callback</li>
 				<li>fade option</li>
 				<li>drag on off (TODO:remove hammer library request)</li>
-				<li>drag on off</li>
 			</ul>
 			<div id="carousel_demo" class="carousel">
 				<ul>
@@ -133,17 +132,17 @@
  * Carousel option if slide length > 0
 
 var options = {
-	slideshow	: {
-			state 		: false 	// Default: false 	--> Set true for turn it on
-			,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
-			,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
+		slideshow	: {
+				state 		: false 	// Default: false 	--> Set true for turn it on
+				,timerInt	: 5000		// Default: 5000	--> Set time value (milliseconds)
+				,stopLoop	: 3 		// Default: 1 		--> Set number of times (0 for infinite)
 		}
 		,set	: {
 			forRow    	: 1 		// Default: 1 		-->	 Set number of item for row
 			,arrow		: false		// Default: false	-->  Set true for turn it on
 			,arrowTo	: false		// Default: false	-->  Set CSS selector for turn it on
 			,key		: false		// Default: false	-->  Set CSS selector for turn it on
-			,spot		: true		// Default: false	-->  Set true for turn it on
+			,spot		: false		// Default: false	-->  Set true for turn it on
 			,drag		: true		// Default: true	-->  Set false for turn it off
 			,mode    	: "slide" 	// Default: "slide"	-->	 Set mode "fade" or "slide"
 			,timeTo    	: 800	 	// Default: 800 	-->	 Set time value (milliseconds)
@@ -154,6 +153,7 @@ var options = {
 			,afterSet      	: null	// Callback function: After swipeCarousel is set or reset
 			,endSlideshow	: null	// Callback function: After swipeCarousel is set or reset
 		}
+	}
 
 =================================== */
 </pre>

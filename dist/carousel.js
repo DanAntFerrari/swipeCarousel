@@ -27,7 +27,7 @@
 		if ('undefined' === typeof ele)	throw new Error('You must give an self.$ele');
 		// To avoid scope issues, use 'self' instead of 'this'
 		// To reference this class from internal events and functions.
-		var self = this;
+		var self = {};
 		self.__class__ = 'swipeCarousel';
 		self.__version__ = '2.0.0';
 
@@ -58,7 +58,7 @@
 				,gap			:	1			// Default: 1	-->  Set number of gap
 				,mode			:	"slide"		// Default: "slide"	-->	 Set mode "fade" or "slide"
 				,timeTo			:	800			// Default: 800 	-->	 Set time value (milliseconds)
-				,resize			:	false		// Default: false	-->  Set true for turn it on
+				,resize			:	true		// Default: false	-->  Set true for turn it on
 			}
 			,callbacks:{
 				onInit 			:	null		// Callback function: On slider initialize
@@ -92,54 +92,17 @@
 		var _slideTimer		=	null;
 		var _moving			=	false;
 
-		// hiding elements on start
-		self.$container.addClass('invisible');
-
-		// set num slides for row
-		if (self.opt.set.forRow >= 2) _paneCount = _paneCount-(self.opt.set.forRow-1);
+		// check how many steps we need
+		var _indicatorsNum  = _paneCount;
+		if (self.opt.set.forRow >= 2) _indicatorsNum = _indicatorsNum-(self.opt.set.forRow-1);
 
 		// set arrow container
-		if(self.opt.set.arrow == true && typeof self.opt.set.arrowTo === 'string')	self.opt.set.arrowTo = $(self.opt.set.arrowTo);
+		if(self.opt.set.arrow == true && typeof self.opt.set.arrowTo === 'string')	self.opt.set.arrowTo = self.$ele.parents(self.opt.set.arrowTo);
 		else if(!(self.opt.set.arrowTo instanceof $)) self.opt.set.arrowTo = self.$ele;
 
 		// set spot container
-		if(self.opt.set.spot == true && typeof self.opt.set.spotTo === 'string' )	self.opt.set.spotTo = $(self.opt.set.spotTo);
+		if(self.opt.set.spot == true && typeof self.opt.set.spotTo === 'string' )	self.opt.set.spotTo = self.$ele.parents(self.opt.set.spotTo);
 		else if(!(self.opt.set.spotTo instanceof $)) self.opt.set.spotTo = self.$ele;
-
-		//console.log=function(msg1,msg2,msg3,msg3) {
-		//	if (!w_isIE){
-		//		if(typeof console == "undefined"){
-		//			var console = { log: function() {} }
-		//		}
-		//		console.log("carousel: ",msg1,msg2,msg3,msg3)
-		//	}
-		//}	//console.log(msg1,msg2,msg3,msg3);
-
-
-		//initialization
-		self.init=function() {
-			// if slide length > 0 init navigation
-			if (_paneCount > 1) self.navigation();
-			else self.opt.set.arrow = self.opt.set.arrow = false;
-			//set dimensions
-			self.setPaneDimensions(true);
-
-			//init auto slider
-			if (_paneCount > 1 &&self.opt.slideshow.state) self.sliderstartTimer();
-			//CHECK TAB ACTION
-			if(self.opt.set.resize){
-				$win.on("resize orientationchange", function() {
-					clearInterval(_slideTimer);
-					self.setPaneDimensions(false);
-					//updateOffset();
-				});
-			}
-
-			//$('.menu-trigger').on("click", function() {
-			////	clearInterval(_slideTimer);
-			//});
-		};
-
 
 		//function destroy(){
 		//	elem.removeClass('jspScrollable').unbind('.jsp');
@@ -152,26 +115,29 @@
 		//}
 
 		//set the pane dimensions and scale the self.$container
-		this.setPaneDimensions=function(onInitI) {
-			// beforeSet callback
+		self.setPaneDimensions=function(onInitI) {
+
+			// If beforeSet callback
 			if (self.opt.callbacks.beforeSet!=null && typeof(self.opt.callbacks.beforeSet ) == 'function' ) self.opt.callbacks.afterSet(self);
-			self.$container.addClass('invisible');
+
+			//hide element during setting
+			self.$container.addClass('hidden');
 			if(self.opt.set.arrow && self.$navArrow)self.$navArrow.addClass('invisible');
 			if(self.opt.set.spot && self.$indicators)self.$indicators.addClass('invisible');
 			self.$ele.addClass('js-loading');
 			//var self.$panesHeight = (self.$panes.height())+'px';
-			_paneWidth = (self.$ele.innerWidth())/self.opt.set.forRow;
-			_paneHeight = self.$ele.innerHeight();
+
+			//reset initial width
+			self.$ele.removeAttr( 'style');
+
+			//set  pane width rounded to at most 4 decimal
+			_paneWidth = Math.ceil((self.$ele.innerWidth())/self.opt.set.forRow * 10000)/10000;
+			//not necessary _paneHeight = self.$ele.innerHeight();
 			self.$panes.width(_paneWidth);
 			var _containerWidth = _paneWidth*(_paneCount);
-			if (self.opt.set.forRow >= 2 && self.opt.set.mode == "slide"){
-				//_containerWidth = Math.round(_paneWidth*(_paneCount+(self.opt.set.forRow-1)));
-				_containerWidth = (_paneWidth*(_paneCount+(self.opt.set.forRow-1)))+1;
-				if(self.$ele.width()>=_containerWidth){
-					_containerWidth=self.$ele.width;
-				}
-			}
-			else if (self.opt.set.mode == "fade"){
+
+			// DA RIVEDERSI
+			if (self.opt.set.mode == "fade"){
 				self.panesHeight	=	self.$panes.height();
 				_containerWidth		=	self.$ele.width;
 				self.$panes.hide();
@@ -183,41 +149,49 @@
 				self.$container.height(self.panesHeight);
 			}
 
+
 			if(self.opt.set.spot && self.$indicators){
 				// center pointers in page:
 				var leftMargin = self.$indicators.outerWidth() / 2 ;
 				self.$indicators.css('margin-left',-leftMargin+'px');
 			}
+			//console.log(_containerWidth)
+			self.$ele.animate({
+				width:self.$ele.innerWidth()
+			}, 0, function() {
+				self.$container.animate({
+						width:_containerWidth
+					}, 0, function() {
+						// math complete.
+						self.$ele.removeClass('js-loading');
+						if(self.opt.set.arrow && self.$navArrow)self.$navArrow.removeClass('invisible');
+						if(self.opt.set.spot && self.$indicators)self.$indicators.removeClass('invisible');
+						self.$container.delay(100).removeClass('hidden');
 
-			self.$container.animate({
-					width:_containerWidth
-				}, 0, function() {
-					// math complete.
-					self.$ele.removeClass('js-loading');
-					if(self.opt.set.arrow && self.$navArrow)self.$navArrow.removeClass('invisible');
-					if(self.opt.set.spot && self.$indicators)self.$indicators.removeClass('invisible');
-					self.$container.delay(100).removeClass('invisible');
+						if (onInitI){
+							if (self.opt.set.forRow >= 2){
+								self.$panes.slice(0,(0+self.opt.set.forRow)).fadeIn(self.opt.set.timeTo);
+							}
+							else{
+								self.$panes.eq(0).fadeIn(self.opt.set.timeTo);
+							}
+							onInitI=false;
+							// onInit callback
+							if (self.opt.callbacks.onInit!=null && typeof(self.opt.callbacks.onInit ) == 'function' ) self.opt.callbacks.onInit(self);
 
-					if (onInitI){
-						if (self.opt.set.forRow >= 2){
-							self.$panes.slice(0,(0+self.opt.set.forRow)).fadeIn(self.opt.set.timeTo);
+
 						}
-						else{
-							self.$panes.eq(0).fadeIn(self.opt.set.timeTo);
+						else {
+							self.goToIndex(_currentPane);
 						}
-						onInitI=false;
-						// onInit callback
-						if (self.opt.callbacks.onInit!=null && typeof(self.opt.callbacks.onInit ) == 'function' ) self.opt.callbacks.onInit(self);
-
-
+						// afterSet callback
+						if (self.opt.callbacks.afterSet!=null && typeof(self.opt.callbacks.afterSet ) == 'function' ) self.opt.callbacks.afterSet(self);
 					}
-					else {
-						self.goToIndex(_currentPane);
-					}
-					// afterSet callback
-					if (self.opt.callbacks.afterSet!=null && typeof(self.opt.callbacks.afterSet ) == 'function' ) self.opt.callbacks.afterSet(self);
-				}
-			);
+				);
+
+			});
+/*
+*/
 
 		};	// self.setPaneDimensions();
 
@@ -226,7 +200,6 @@
 			if(self.opt.set.arrow || self.opt.set.key || self.opt.set.spot)self.opt.set.arrowTo.addClass('withnav');
 
 			if(self.opt.set.arrow){
-
 				var left = "<a class='disabled nav-arrow prev disable' disabled='disabled' rel='prev' href='javascript:void(0);'> <span aria-hidden='true' class='icon-arrow-left'></span></a>";
 				var right = "<a class='nav-arrow next' rel='next' href='javascript:void(0);'><span aria-hidden='true' class='icon-arrow-right'></span></a>";
 
@@ -254,8 +227,8 @@
 				});
 
 			}
+			/*
 			if(self.opt.set.key){
-				/*
 				self.$ele.hover(
 				mouseEnter: function(e){
 					console.log('eccoci');
@@ -271,7 +244,6 @@
 					}); // window.keyup
 				});
 				console.log('asdas')
-*/
 				self.$ele.on('keyup',function (e) {
 					var tag = e.target.tagName.toLowerCase();
 					console.log(e);
@@ -288,13 +260,14 @@
 					}
 				});
 			}
+			*/
 
 			if(self.opt.set.spot){
 
 				var indicatorsHtml = "<ul class='indicators'>";
 
 				//check how many steps we need
-				for (var i=0;i<_paneCount;i++) {
+				for (var i=0;i<_indicatorsNum;i++) {
 					$(this).data('ind','ind_'+i);
 					indicatorsHtml +=  '<li class="spot" data-index="'+i+'"><a href="javascript:void(0);"></a></li>';
 				}
@@ -391,8 +364,10 @@
 				// mode slide
 				_currentPane = index;
 				var offset = -((100/_paneCount)*_currentPane);
+				//console.log("log___1 ",offset,_paneCount,_currentPane)
 				offset = offset*self.opt.set.gap;
 				setContainerOffset(offset, true);
+				//console.log("log___2 ",offset,_paneCount,_currentPane)
 				if(self.$indicatorSpot)	self.$indicatorSpot.eq(_currentPane).addClass('active');
 			}
 		};	// self.showPane();
@@ -426,13 +401,17 @@
 		self.next=function() {
 			//console.log('next '+_currentPane);
 			self.updatenav(_currentPane,'next');
-			return self.showPane(_currentPane+1, true);
+			if(_currentPane<(_indicatorsNum-1)){
+				return self.showPane(_currentPane+1, true);
+			}
 		};	// self.next();
 
 		self.prev=function() {
 			//console.log('prev '+_currentPane);
 			self.updatenav(_currentPane,'prev');
-			return self.showPane(_currentPane-1, true);
+			if(_currentPane>0){
+				return self.showPane(_currentPane-1, true);
+			}
 		};	// self.prev();
 
 		self.goToIndex=function(index) {
@@ -450,11 +429,10 @@
 					if(_currentPane<=1){
 						if(self.opt.set.arrow)self.$navArrowPrev.addClass('disabled').attr('disabled','disabled');
 					}
-					if(self.opt.set.spot && self.$indicatorSpot)self.$indicatorSpot.eq(_currentPane+1).addClass('active');
 				break;
 				case 'next':
-					if(_currentPane>=(_paneCount-2)){
-						if(self.opt.set.arrow)self.$navArrowNext.addClass('disabled').attr('disabled','disabled');
+					if(_currentPane>=(_indicatorsNum-1) && self.opt.set.arrow){
+						self.$navArrowNext.addClass('disabled').attr('disabled','disabled');
 					}
 
 				break;
@@ -483,15 +461,20 @@
 
 					if(self.opt.set.mode != "fade") {
 						// stick to the finger
-						var pane_offset = -(100/_paneCount)*_currentPane;
-						var drag_offset = ((100/_paneWidth)*ev.gesture.deltaX) / _paneCount;
 
-						// slow down at the first and last pane
-						if((_currentPane == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
-							(_currentPane == _paneCount-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
-							drag_offset *= .4;
+						if((_currentPane != 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) || (_currentPane != _indicatorsNum-1 == ev.gesture.direction == Hammer.DIRECTION_LEFT)){
+							var pane_offset = -(100/_paneCount)*_currentPane;
+							var drag_offset = ((100/_paneWidth)*ev.gesture.deltaX) / _paneCount;
+							//console.log(pane_offset,drag_offset,ev.gesture.deltaX,_paneWidth,pane_offset-drag_offset)
+							// slow down at the first and last pane
+							if((_currentPane == 0 && ev.gesture.direction == Hammer.DIRECTION_RIGHT) ||
+								(_currentPane == _indicatorsNum-1 && ev.gesture.direction == Hammer.DIRECTION_LEFT)) {
+								drag_offset *= .4;
+							}
+							if(ev.gesture.deltaX <= _paneWidth && ev.gesture.direction == Hammer.DIRECTION_RIGHT || (ev.gesture.deltaX >= (-_paneWidth)) && ev.gesture.direction == Hammer.DIRECTION_LEFT){
+								setContainerOffset(drag_offset + pane_offset);
+							}
 						}
-						setContainerOffset(drag_offset + pane_offset);
 					}
 				break;
 
@@ -508,7 +491,6 @@
 				break;
 
 				case 'release':
-
 					// more then 50% moved, navigate
 					if(Math.abs(ev.gesture.deltaX) > _paneWidth/2) {
 						if(ev.gesture.direction == 'right') {
@@ -532,17 +514,36 @@
 				break;
 			}
 
-
 		}
-		// IF slide length > 0
-		self.init();
-		if (_paneCount > 1 && self.opt.set.drag && Hammer){
-			// no swype on windows mobile
-			if(!_isIE) {
-			//if(!_isIE && Modernizr.touch) {
-				self.$ele.hammer().on("release dragleft dragright swipeleft swiperight", handleHammer);
+
+		//initialization
+		self.init=function() {
+			// if slide length > 0 init navigation
+			if (_paneCount > self.opt.set.forRow) self.navigation();
+			else self.opt.set.arrow = self.opt.set.arrow = false;
+			//set dimensions
+			self.setPaneDimensions(true);
+
+			//init auto slider
+			if (_paneCount > self.opt.set.forRow &&self.opt.slideshow.state) self.sliderstartTimer();
+			//CHECK TAB ACTION
+			if(self.opt.set.resize){
+				$win.on("resize orientationchange", function() {
+					clearInterval(_slideTimer);
+					self.setPaneDimensions(false);
+					//updateOffset();
+				});
 			}
 		};
+
+
+		self.init();
+		// If slides length > self.opt.set.forRow	if drag on and no IE
+		if (_paneCount > self.opt.set.forRow && self.opt.set.drag && Hammer && !_isIE) {
+			self.$ele.hammer().on("release dragleft dragright swipeleft swiperight", handleHammer);
+		};
+
+		return self;
 	}; // $.swipeCarousel
 
 

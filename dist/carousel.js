@@ -150,6 +150,10 @@
 			}
 
 
+			self.$panes.eq(_currentPane).addClass('active');
+			if(_currentPane!=0)self.$panes.eq(_currentPane-1).addClass('prev');
+			self.$panes.eq(_currentPane+1).addClass('next');
+
 			if(self.opt.set.spot && self.$indicators){
 				// center pointers in page:
 				var leftMargin = self.$indicators.outerWidth() / 2 ;
@@ -361,13 +365,33 @@
 				}
 			}
 			else {
-				// mode slide
 				_currentPane = index;
 				var offset = -((100/_paneCount)*_currentPane);
-				//console.log("log___1 ",offset,_paneCount,_currentPane)
-				offset = offset*self.opt.set.gap;
+				//ESEMPIO CALCOLO LASTGAP
+				/*
+					// n totale item / numero delle colonne per ottenere l'avanzo
+					var nGap = itemL/nCol
+					// nseparo l'avanzo (restante item) dall'intero
+					nGap = nGap - Math.floor(nGap);
+					if(nGap==0){
+						nGap=null;
+					}else{
+						// rapporto degli spazi vuoti sul toale del contenitore
+						nGap = (100/i) * (nCol - Math.floor(nGap*nCol));
+						// rarrotondo per bellezza ed ie8
+						nGap = nGap.toFixed(5);
+					}
+				*/
+				//sottraggo all'offset la precentuale di spazio che non voglio mostrare dell'ultimo pannello sul totale della maschera
+				if((self.opt.set.lastgap != null) && ((index+1)>= _paneCount)) {
+					console.log("ultimo",offset,self.opt.set.lastgap);
+					offset = offset+Number(self.opt.set.lastgap);
+				}
+
 				setContainerOffset(offset, true);
-				//console.log("log___2 ",offset,_paneCount,_currentPane)
+				self.$panes.eq(_currentPane).addClass('active');
+				if(_currentPane!=0)self.$panes.eq(_currentPane-1).addClass('prev');
+				self.$panes.eq(_currentPane+1).addClass('next');
 				if(self.$indicatorSpot)	self.$indicatorSpot.eq(_currentPane).addClass('active');
 			}
 		};	// self.showPane();
@@ -423,6 +447,8 @@
 		self.updatenav=function(index,direction) {
 			if(self.opt.set.arrow && self.$navArrow)self.$navArrow.removeClass('disabled').removeAttr('disabled');
 			if(self.opt.set.spot && self.$indicatorSpot)self.$indicatorSpot.removeClass('active');
+			self.$panes.eq(_currentPane).removeClass('active');
+			self.$panes.removeClass('prev next');
 
 			switch(direction) {
 				case 'prev':
